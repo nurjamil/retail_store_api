@@ -104,6 +104,27 @@ paths:
           description: invalid input, object invalid
         409:
           description: an existing item already exists
+    put:
+      tags:
+      - admins
+      summary: edit an inventory item
+      operationId: edit items
+      description: edit an item to the system
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: inventoryItem
+        description: Inventory item to add
+        schema:
+          $ref: '#/definitions/Item'
+      responses:
+        201:
+          description: item updated
+        400:
+          description: invalid input, object invalid
   /shopping_carts:
     get:
       tags:
@@ -124,9 +145,7 @@ paths:
         200:
           description: search results matching criteria
           schema:
-            type: array
-            items:
-              $ref: '#/definitions/shopping_cart'
+            $ref: '#/definitions/shopping_cart'
         400:
           description: bad input parameter
     post:
@@ -243,9 +262,14 @@ paths:
         description: Inventory item to add
         required : true
         schema:
-          type: array
-          items:
-            $ref: '#/definitions/Item'
+          type: object
+          properties: 
+            order:
+              $ref: '#/definitions/order'
+            items: 
+              type: array
+              items:
+                $ref: '#/definitions/Item'
       responses:
         201:
           description: order created
@@ -310,14 +334,9 @@ definitions:
         type: integer
         format: uint32
   shopping_cart:
-    type: object
-    properties:
-      no:
-        type: integer
-        format: uint32
-        example : 1
-      Item: 
-          $ref: '#/definitions/Item'
+    type: array
+    items: 
+      $ref: '#/definitions/Item'
   order:
     type: object
     properties:
