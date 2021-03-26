@@ -104,6 +104,209 @@ paths:
           description: invalid input, object invalid
         409:
           description: an existing item already exists
+  /payment:
+    get:
+      tags:
+      - developers
+      summary: payment list
+      operationId: payment item
+      description: |
+        By passing in the appropriate options, you can search for
+        certain available payment
+      produces:
+      - application/json
+      parameters:
+      - in: query
+        name: payment_id
+        description: pass an optional search string for looking up item
+        required: false
+        type: string
+      - in: query
+        name: order_id
+        description: order id from order
+        required: false
+        type: string
+      - in: query
+        name: customer_id
+        description: customer id from customer
+        required: false
+        type: string
+      - in: query
+        name: status
+        description: status
+        type: integer
+        format: uint32
+        minimum: 0
+        maximum: 50
+      - in: query
+        name: total_amount
+        description: minimum price
+        type: integer
+        format: uint32
+        minimum: 0
+        maximum: 20000000
+      - in: query
+        name: description
+        description: maximum price
+        type: integer
+        format: uint32
+        minimum: 0
+        maximum: 20000000
+      - in: query
+        name: sort
+        description: pass an optional search string for looking up item
+        required: false
+        type: string
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Item'
+        400:
+          description: bad input parameter
+    post:
+      tags:
+      - admins
+      summary: adds an payment 
+      operationId: addPayment
+      description: Adds an payment to the system
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: payment
+        description: payment to add
+        schema:
+          $ref: '#/definitions/Payment'
+      responses:
+        201:
+          description: item created
+        400:
+          description: invalid input, object invalid
+        409:
+          description: an existing item already exists     
+  /courier:
+    get:
+      tags:
+      - developers
+      summary: courier list
+      operationId: courier courier
+      description: |
+        By passing in the appropriate options, you can search for
+        certain available courier
+      produces:
+      - application/json
+      parameters:
+      - in: query
+        name: courier_id
+        description: pass an optional search string for looking up item
+        required: false
+        type: string
+      - in: query
+        name: company_name
+        description: pass an optional search string for looking up item
+        required: false
+        type: string
+      - in: query
+        name: sort
+        description: pass an optional search string for looking up item
+        required: false
+        type: string
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Courier'
+        400:
+          description: bad input parameter
+    post:
+      tags:
+      - admins
+      summary: adds an courier item
+      operationId: addCourier
+      description: Adds an item to the system
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: courier
+        description: Inventory courier to add
+        schema:
+          $ref: '#/definitions/Courier'
+      responses:
+        201:
+          description: courier created
+        400:
+          description: invalid input, object invalid
+        409:
+          description: an existing courier already exists
+  /address:
+    get:
+      tags:
+      - developers
+      summary: item list
+      operationId: list item
+      description: |
+        By passing in the appropriate options, you can search for
+        certain available item
+      produces:
+      - application/json
+      parameters:
+      - in: query
+        name: address_id
+        description: pass an optional search string for looking up item
+        required: false
+        type: string
+      - in: query
+        name: address
+        description: pass an optional search string for looking up item
+        required: false
+        type: string
+      - in: query
+        name: sort
+        description: pass an optional search string for looking up item
+        required: false
+        type: string
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/address'
+        400:
+          description: bad input parameter
+    post:
+      tags:
+      - admins
+      summary: adds an address item
+      operationId: addaddress
+      description: Adds an item to the system
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: addressItem
+        description: address item to add
+        schema:
+          $ref: '#/definitions/Address'
+      responses:
+        201:
+          description: address created
+        400:
+          description: invalid input, object invalid
+        409:
+          description: an existing address already exists                   
   /shopping_carts:
     get:
       tags:
