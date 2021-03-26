@@ -150,7 +150,7 @@ paths:
           description: bad input parameter
     post:
       tags:
-      - developer
+      - developers
       summary: adds an item to shopping cart
       operationId: addItemToShoppingCart
       description: Adds an item to the system
@@ -183,7 +183,7 @@ paths:
           description: an existing item already exists
     delete:
       tags:
-      - developer
+      - developers
       summary: delete an item from shopping cart
       operationId: deleteItemFromShoppingCart
       description: delete an item from the system
@@ -243,7 +243,7 @@ paths:
           description: bad input parameter
     post:
       tags:
-      - developer
+      - developers
       summary: adds an order
       operationId: add an order
       description: Adds an order to the system
@@ -277,7 +277,7 @@ paths:
           description: invalid input, object invalid
     delete:
       tags:
-      - developer
+      - developers
       summary: delete order item 
       operationId: delete order
       description: delete an order from the system
@@ -311,12 +311,6 @@ paths:
 definitions:
   Item:
     type: object
-    required:
-    - id
-    - name
-    - description
-    - category
-    - price
     properties:
       id:
         type: integer
