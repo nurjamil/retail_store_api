@@ -87,8 +87,6 @@ paths:
                   type: array
                   items:
                     $ref: '#/definitions/Item'  
-                
- 
         400:
           description: bad input parameter
           schema:
@@ -183,6 +181,56 @@ paths:
                 data:
                   type: object
                   $ref: '#/definitions/Item'
+  /items/{item_name}:
+    get:
+      tags:
+        - developers
+      summary: item list
+      operationId: list item
+      description: |
+        By passing in the appropriate options, you can search for
+        certain available item
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name : item_name
+          type: string
+          required: true
+          description: item name user to get
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+              type: object
+              properties: 
+                code:
+                  type: string
+                status:
+                  type: string
+                message:
+                  type: string
+                data:
+                  type: array
+                  items:
+                    $ref: '#/definitions/Item'  
+                
+ 
+        400:
+          description: bad input parameter
+          schema:
+              type: object
+              properties: 
+                code:
+                  type: string
+                status:
+                  type: string
+                message:
+                  type: string
+                data:
+                  type: array
+                  items:
+                    $ref: '#/definitions/Item'
   /shopping_carts:
     get:
       tags:
@@ -326,6 +374,51 @@ paths:
                 data:
                   type: object
                   $ref: '#/definitions/shopping_cart'
+  /orders/{order_id}:
+    get:
+      tags:
+        - developers
+      summary: shopping cart list
+      operationId: order item
+      description: By passing in the appropriate options, you can get items in shopping cart
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: order_id
+          type: integer
+          required: true
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+              type: object
+              properties: 
+                code:
+                  type: string
+                status:
+                  type: string
+                message:
+                  type: string
+                data:
+                  type: array
+                  items:
+                    $ref: '#/definitions/order'
+        400:
+          description: bad input parameter
+          schema:
+              type: object
+              properties: 
+                code:
+                  type: string
+                status:
+                  type: string
+                message:
+                  type: string
+                data:
+                  type: array
+                  items:
+                    $ref: '#/definitions/order'
   /orders:
     get:
       tags:
@@ -657,6 +750,58 @@ paths:
                 type: array
                 items: 
                   $ref: '#/definitions/Payment'
+  /payments/{payment_id}:
+    get:
+      tags:
+      - developers
+      summary: payment list
+      operationId: payment item
+      description: |
+        By passing in the appropriate options, you can search for
+        certain available payment
+      produces:
+      - application/json
+      parameters:
+      - in: header
+        name: authorization
+        required: true
+        type: string
+      - in: path
+        name: payment_id
+        description: pass an optional search integer for looking up payment
+        required: true
+        type: integer
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: object
+            properties: 
+              code:
+                type: integer
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: array
+                items: 
+                  $ref: '#/definitions/Payment'
+        400:
+          description: bad input parameter
+          schema:
+            type: object
+            properties: 
+              code:
+                type: integer
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: array
+                items: 
+                  $ref: '#/definitions/Payment'
   /courier:
     get:
       tags:
@@ -702,7 +847,7 @@ paths:
         name: address_id
         description: pass an optional search string for looking up address
         required: false
-        type: string
+        type: integer
       - in: query
         name: name
         description: pass an optional search string for looking up address
@@ -805,7 +950,59 @@ paths:
               message:
                 type: string
               data: 
-                  $ref: '#/definitions/Address'      
+                  $ref: '#/definitions/Address'
+  /address/{address_id}:
+      get:
+        tags:
+        - developers
+        summary: get address
+        operationId: get address
+        # description: |
+        #   By passing in the appropriate options, you can search for
+        #   certain available item
+        produces:
+          - application/json
+        parameters:
+        - in: header
+          name: authorization
+          required: true
+          type: string
+        - in: path
+          name: address_id
+          description: pass an optional search string for looking up address
+          required: true
+          type: integer
+        responses:
+          200:
+            description: search results matching criteria
+            schema:
+              type: object
+              properties:
+                code:
+                  type: integer
+                status:
+                  type: string
+                message:
+                  type: string
+                data: 
+                  type: array
+                  items:
+                    $ref: '#/definitions/Address'
+          400:
+            description: bad input parameter
+            schema:
+              type: object
+              properties:
+                code:
+                  type: integer
+                status:
+                  type: string
+                message:
+                  type: string
+                data: 
+                  type: array
+                  items:
+                    $ref: '#/definitions/Address'      
 definitions:
   Item:
     type: object
