@@ -1,7 +1,7 @@
-swagger: '2.0'
+swagger: "2.0"
 info:
   description: This is a simple API
-  version: '1.2'
+  version: "1.2"
   title: Simple Inventory API
   # put the contact info for your development or API team
   contact:
@@ -13,90 +13,90 @@ info:
 
 # tags are used for organizing operations
 tags:
-- name: admins
-  description: Secured Admin-only calls
-- name: developers
-  description: Operations available to regular developers
+  - name: admins
+    description: Secured Admin-only calls
+  - name: developers
+    description: Operations available to regular developers
 
 paths:
   /items:
     get:
       tags:
-      - developers
+        - developers
       summary: item list
       operationId: list item
       description: |
         By passing in the appropriate options, you can search for
         certain available item
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: query
-        name: items_id
-        description: pass an optional search string for looking up item
-        required: false
-        type: string
-      - in: query
-        name: category
-        description: pass an optional search string for looking up item
-        required: false
-        type: string
-      - in: query
-        name: name
-        description: pass an optional search string for looking up item
-        required: false
-        type: string
-      - in: query
-        name: limit
-        description: maximum number of records to return
-        type: integer
-        format: uint32
-        minimum: 0
-        maximum: 50
-      - in: query
-        name: minPrice
-        description: minimum price
-        type: integer
-        format: uint32
-        minimum: 0
-        maximum: 20000000
-      - in: query
-        name: maxPrice
-        description: maximum price
-        type: integer
-        format: uint32
-        minimum: 0
-        maximum: 20000000
-      - in: query
-        name: sort
-        description: pass an optional search string for looking up item
-        required: false
-        type: string
+        - in: query
+          name: items_id
+          description: pass an optional search string for looking up item
+          required: false
+          type: string
+        - in: query
+          name: category
+          description: pass an optional search string for looking up item
+          required: false
+          type: string
+        - in: query
+          name: name
+          description: pass an optional search string for looking up item
+          required: false
+          type: string
+        - in: query
+          name: limit
+          description: maximum number of records to return
+          type: integer
+          format: uint32
+          minimum: 0
+          maximum: 50
+        - in: query
+          name: minPrice
+          description: minimum price
+          type: integer
+          format: uint32
+          minimum: 0
+          maximum: 20000000
+        - in: query
+          name: maxPrice
+          description: maximum price
+          type: integer
+          format: uint32
+          minimum: 0
+          maximum: 20000000
+        - in: query
+          name: sort
+          description: pass an optional search string for looking up item
+          required: false
+          type: string
       responses:
         200:
           description: search results matching criteria
           schema:
             type: array
             items:
-              $ref: '#/definitions/Item'
+              $ref: "#/definitions/Item"
         400:
           description: bad input parameter
     post:
       tags:
-      - admins
+        - admins
       summary: adds an inventory item
       operationId: addInventory
       description: Adds an item to the system
       consumes:
-      - application/json
+        - application/json
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: body
-        name: inventoryItem
-        description: Inventory item to add
-        schema:
-          $ref: '#/definitions/Item'
+        - in: body
+          name: inventoryItem
+          description: Inventory item to add
+          schema:
+            $ref: "#/definitions/Item"
       responses:
         201:
           description: item created
@@ -128,52 +128,62 @@ paths:
   /shopping_carts:
     get:
       tags:
-      - developers
+        - developers
       summary: shopping cart list
       operationId: shopping cart item
       description: |
         By passing in the appropriate options, you can get items in shopping cart
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: header
-        name: Authorization
-        description: pass an required search string for looking up item in shopping cart
-        required: true
-        type: string
+        - in: header
+          name: Authorization
+          description: pass an required search string for looking up item in shopping cart
+          required: true
+          type: string
       responses:
         200:
           description: search results matching criteria
           schema:
+<<<<<<< HEAD
             $ref: '#/definitions/shopping_cart'
+=======
+            type: array
+            items:
+              $ref: "#/definitions/shopping_cart"
+>>>>>>> a84347c78933e83d5f22a6b6958df17ba14ae3d9
         400:
           description: bad input parameter
     post:
       tags:
+<<<<<<< HEAD
       - developers
+=======
+        - developer
+>>>>>>> a84347c78933e83d5f22a6b6958df17ba14ae3d9
       summary: adds an item to shopping cart
       operationId: addItemToShoppingCart
       description: Adds an item to the system
       consumes:
-      - application/json
+        - application/json
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: header
-        name: authorization
-        description: token
-        required : true
-        type : string
-      - in: body
-        name: item_id
-        description: Inventory item to add
-        required : true
-        schema:
-          type: object
-          properties:
-            item_id:
-              type: integer
-              format: uint32
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: Inventory item to add
+          required: true
+          schema:
+            type: object
+            properties:
+              item_id:
+                type: integer
+                format: uint32
       responses:
         201:
           description: item created
@@ -183,30 +193,34 @@ paths:
           description: an existing item already exists
     delete:
       tags:
+<<<<<<< HEAD
       - developers
+=======
+        - developer
+>>>>>>> a84347c78933e83d5f22a6b6958df17ba14ae3d9
       summary: delete an item from shopping cart
       operationId: deleteItemFromShoppingCart
       description: delete an item from the system
       consumes:
-      - application/json
+        - application/json
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: header
-        name: authorization
-        description: token
-        required : true
-        type : string
-      - in: body
-        name: item_id
-        description: Inventory item to add
-        required : true
-        schema:
-          type: object
-          properties:
-            item_id:
-              type: integer
-              format: uint32
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: Inventory item to add
+          required: true
+          schema:
+            type: object
+            properties:
+              item_id:
+                type: integer
+                format: uint32
       responses:
         201:
           description: item deleted
@@ -217,41 +231,46 @@ paths:
   /orders:
     get:
       tags:
-      - developers
+        - developers
       summary: shopping cart list
       operationId: order item
       description: By passing in the appropriate options, you can get items in shopping cart
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: header
-        name: Authorization
-        description: pass an required search string for looking up ite  in shopping cart
-        required: true
-        type: string
-      - in: query
-        name: order_id
-        description: pass an order_id
-        required: true
-        type: integer
+        - in: header
+          name: Authorization
+          description: pass an required search string for looking up ite  in shopping cart
+          required: true
+          type: string
+        - in: query
+          name: order_id
+          description: pass an order_id
+          required: true
+          type: integer
       responses:
         200:
           description: search results matching criteria
           schema:
-              $ref: '#/definitions/order'
+            $ref: "#/definitions/order"
         400:
           description: bad input parameter
     post:
       tags:
+<<<<<<< HEAD
       - developers
+=======
+        - developer
+>>>>>>> a84347c78933e83d5f22a6b6958df17ba14ae3d9
       summary: adds an order
       operationId: add an order
       description: Adds an order to the system
       consumes:
-      - application/json
+        - application/json
       produces:
-      - application/json
+        - application/json
       parameters:
+<<<<<<< HEAD
       - in: header
         name: authorization
         description: token
@@ -270,6 +289,21 @@ paths:
               type: array
               items:
                 $ref: '#/definitions/Item'
+=======
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item
+          description: Inventory item to add
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Item"
+>>>>>>> a84347c78933e83d5f22a6b6958df17ba14ae3d9
       responses:
         201:
           description: order created
@@ -277,30 +311,35 @@ paths:
           description: invalid input, object invalid
     delete:
       tags:
+<<<<<<< HEAD
       - developers
       summary: delete order item 
+=======
+        - developer
+      summary: delete order item
+>>>>>>> a84347c78933e83d5f22a6b6958df17ba14ae3d9
       operationId: delete order
       description: delete an order from the system
       consumes:
-      - application/json
+        - application/json
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: header
-        name: authorization
-        description: token
-        required : true
-        type : string
-      - in: body
-        name: item_id
-        description: Inventory item to add
-        required : true
-        schema:
-          type: object
-          properties:
-            item_id:
-              type: integer
-              example : 0
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: Inventory item to add
+          required: true
+          schema:
+            type: object
+            properties:
+              item_id:
+                type: integer
+                example: 0
       responses:
         201:
           description: order deleted
@@ -308,9 +347,64 @@ paths:
           description: invalid input, object invalid
         409:
           description: order not exist
+  /register:
+    post:
+      tags:
+        - developer
+      summary: register user account
+      operationId: register user account
+      description: register user account to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: register user
+          description: register user account
+          required: true
+          schema:
+            $ref: "#/definitions/RegisterUser"
+      responses:
+        201:
+          description: account created
+        400:
+          description: invalid input, object invalid
+  /login:
+    post:
+      tags:
+        - developer
+      summary: login user account
+      operationId: login user account
+      description: login user account to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: user login
+          description: login user account
+          required: true
+          schema:
+            $ref: "#/definitions/UserLogin"
+      responses:
+        200:
+          description: login access granted
+        400:
+          description: incorrect username/password
 definitions:
   Item:
     type: object
+<<<<<<< HEAD
+=======
+    required:
+      - id
+      - name
+      - description
+      - category
+      - price
+>>>>>>> a84347c78933e83d5f22a6b6958df17ba14ae3d9
     properties:
       id:
         type: integer
@@ -328,9 +422,20 @@ definitions:
         type: integer
         format: uint32
   shopping_cart:
+<<<<<<< HEAD
     type: array
     items: 
       $ref: '#/definitions/Item'
+=======
+    type: object
+    properties:
+      no:
+        type: integer
+        format: uint32
+        example: 1
+      Item:
+        $ref: "#/definitions/Item"
+>>>>>>> a84347c78933e83d5f22a6b6958df17ba14ae3d9
   order:
     type: object
     properties:
@@ -351,11 +456,9 @@ definitions:
         type: string
       status:
         type: string
-  User:
+  RegisterUser:
     type: object
     properties:
-      user_id:
-        type: integer
       username:
         type: string
       nama:
@@ -366,12 +469,20 @@ definitions:
       phone_number:
         type: string
         example: "+628999"
-      
-      
-    
-      
+      password:
+        type: string
+        example: "password123"
+  UserLogin:
+    type: object
+    properties:
+      username:
+        type: string
+      password:
+        type: string
+        example: "password123"
+
 # Added by API Auto Mocking Plugin
 host: virtserver.swaggerhub.com
 basePath: /a4443/retail_store/1.2
 schemes:
- - https
+  - https
