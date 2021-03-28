@@ -1,0 +1,43 @@
+[33mcommit 3b6558f0376abac639bd0af36f5e96e9f15bb330[m[33m ([m[1;36mHEAD[m[33m, [m[1;32mresponseFixing[m[33m)[m
+Author: Nurjamil <nurjamil1996@gmail.com>
+Date:   Sat Mar 27 19:52:03 2021 +0700
+
+    version 0.9
+
+[33mcommit 7c5f7fb4a9fa9ea1980e2b9f76d225e795896fd9[m[33m ([m[1;31morigin/fixingResponse[m[33m, [m[1;31morigin/dev[m[33m, [m[1;32mfixingResponse[m[33m, [m[1;32mdev[m[33m)[m
+Merge: cbc0411 a84347c
+Author: Nurjamil <nurjamil1996@gmail.com>
+Date:   Sat Mar 27 12:19:55 2021 +0700
+
+    merge login/register swagger
+
+[33mcommit cbc04117bb73c1cfd6e7223b2242dd95a2801c41[m
+Merge: 2780126 2080280
+Author: Nurjamil <nurjamil1996@gmail.com>
+Date:   Fri Mar 26 18:48:14 2021 +0700
+
+    Merge branch 'dev' of https://github.com/nurjamil/retail_store_api into fixingResponse
+
+[33mcommit 208028042c797d59dcad57e07d24c097e7b2e265[m
+Author: Nurjamil <nurjamil1996@gmail.com>
+Date:   Fri Mar 26 18:47:15 2021 +0700
+
+    fixingresponse
+
+[33mcommit a84347c78933e83d5f22a6b6958df17ba14ae3d9[m[33m ([m[1;31morigin/fir[m[33m)[m
+Author: firzatullahd <firzatullahdwikoramadhan@gmail.com>
+Date:   Fri Mar 26 18:14:50 2021 +0700
+
+    add endpoint login & register
+
+[33mcommit 278012605c311d4fa7002b8428ca43bde4d07c82[m
+Author: Nurjamil <nurjamil1996@gmail.com>
+Date:   Fri Mar 26 16:32:43 2021 +0700
+
+    fixingResponse
+
+[33mcommit c8c74bf549e5f9f12f7f6771bfde6a97b104b1c8[m
+Author: Nurjamil <nurjamil1996@gmail.com>
+Date:   Fri Mar 26 16:10:25 2021 +0700
+
+    first commit
