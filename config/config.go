@@ -17,7 +17,7 @@ func InitDB() {
 		"DB_Password": "root",
 		"DB_Port":     "3306",
 		"DB_Host":     "localhost",
-		"DB_Name":     "retailStore",
+		"DB_Name":     "retail_store_db",
 	}
 
 	connectionString :=

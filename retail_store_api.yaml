@@ -75,33 +75,33 @@ paths:
         200:
           description: search results matching criteria
           schema:
-              type: object
-              properties: 
-                code:
-                  type: string
-                status:
-                  type: string
-                message:
-                  type: string
-                data:
-                  type: array
-                  items:
-                    $ref: '#/definitions/Item'  
+            type: object
+            properties:
+              code:
+                type: string
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: "#/definitions/Item"
         400:
           description: bad input parameter
           schema:
-              type: object
-              properties: 
-                code:
-                  type: string
-                status:
-                  type: string
-                message:
-                  type: string
-                data:
-                  type: array
-                  items:
-                    $ref: '#/definitions/Item'
+            type: object
+            properties:
+              code:
+                type: string
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: "#/definitions/Item"
     post:
       tags:
         - admins
@@ -122,65 +122,65 @@ paths:
         201:
           description: item created
           schema:
-              $ref: '#/definitions/Response' 
-              type: object
-              properties: 
-                data:
-                  type: object
-                  $ref: '#/definitions/Item'
+            $ref: "#/definitions/Response"
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: "#/definitions/Item"
         400:
           description: invalid input, object invalid
           schema:
-              $ref: '#/definitions/Response' 
-              type: object
-              properties: 
-                data:
-                  type: object
-                  $ref: '#/definitions/Item'
+            $ref: "#/definitions/Response"
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: "#/definitions/Item"
         409:
           description: ---
           schema:
-              $ref: '#/definitions/Response' 
-              type: object
-              properties: 
-                data:
-                  type: object
-                  $ref: '#/definitions/Item'
+            $ref: "#/definitions/Response"
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: "#/definitions/Item"
     put:
       tags:
-      - admins
+        - admins
       summary: edit an inventory item
       operationId: edit items
       description: edit an item to the system
       consumes:
-      - application/json
+        - application/json
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: body
-        name: inventoryItem
-        description: Inventory item to add
-        schema:
-          $ref: '#/definitions/Item'
+        - in: body
+          name: inventoryItem
+          description: Inventory item to add
+          schema:
+            $ref: "#/definitions/Item"
       responses:
         201:
           description: item updated
           schema:
-              $ref: '#/definitions/Response' 
-              type: object
-              properties: 
-                data:
-                  type: object
-                  $ref: '#/definitions/Item'
+            $ref: "#/definitions/Response"
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: "#/definitions/Item"
         400:
           description: invalid input, object invalid
           schema:
-              $ref: '#/definitions/Response' 
-              type: object
-              properties: 
-                data:
-                  type: object
-                  $ref: '#/definitions/Item'
+            $ref: "#/definitions/Response"
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: "#/definitions/Item"
   /items/{item_name}:
     get:
       tags:
@@ -194,7 +194,7 @@ paths:
         - application/json
       parameters:
         - in: path
-          name : item_name
+          name: item_name
           type: string
           required: true
           description: item name user to get
@@ -202,35 +202,34 @@ paths:
         200:
           description: search results matching criteria
           schema:
-              type: object
-              properties: 
-                code:
-                  type: string
-                status:
-                  type: string
-                message:
-                  type: string
-                data:
-                  type: array
-                  items:
-                    $ref: '#/definitions/Item'  
-                
- 
+            type: object
+            properties:
+              code:
+                type: string
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: "#/definitions/Item"
+
         400:
           description: bad input parameter
           schema:
-              type: object
-              properties: 
-                code:
-                  type: string
-                status:
-                  type: string
-                message:
-                  type: string
-                data:
-                  type: array
-                  items:
-                    $ref: '#/definitions/Item'
+            type: object
+            properties:
+              code:
+                type: string
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: "#/definitions/Item"
   /shopping_carts:
     get:
       tags:
@@ -251,24 +250,24 @@ paths:
         200:
           description: ok results matching criteria
           schema:
-              $ref: '#/definitions/Response' 
-              type: object
-              properties: 
-                data:
-                  type: object
-                  $ref: '#/definitions/shopping_cart'
+            $ref: "#/definitions/Response"
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: "#/definitions/shopping_cart"
         400:
           description: bad input parameter
           schema:
-              $ref: '#/definitions/Response' 
-              type: object
-              properties: 
-                data:
-                  type: object
-                  $ref: '#/definitions/shopping_cart'
+            $ref: "#/definitions/Response"
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: "#/definitions/shopping_cart"
     post:
       tags:
-      - developers
+        - developers
       summary: adds an item to shopping cart
       operationId: addItemToShoppingCart
       description: Adds an item to the system
@@ -296,33 +295,33 @@ paths:
         201:
           description: item created
           schema:
-              $ref: '#/definitions/Response' 
-              type: object
-              properties: 
-                data:
-                  type: object
-                  $ref: '#/definitions/shopping_cart'
+            $ref: "#/definitions/Response"
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: "#/definitions/shopping_cart"
         400:
           description: invalid input, object invalid
           schema:
-              $ref: '#/definitions/Response' 
-              type: object
-              properties: 
-                data:
-                  type: object
-                  $ref: '#/definitions/shopping_cart'
+            $ref: "#/definitions/Response"
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: "#/definitions/shopping_cart"
         409:
           description: an existing item already exists
           schema:
-              $ref: '#/definitions/Response' 
-              type: object
-              properties: 
-                data:
-                  type: object
-                  $ref: '#/definitions/shopping_cart'
+            $ref: "#/definitions/Response"
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: "#/definitions/shopping_cart"
     delete:
       tags:
-      - developers
+        - developers
       summary: delete an item from shopping cart
       operationId: deleteItemFromShoppingCart
       description: delete an item from the system
@@ -350,30 +349,30 @@ paths:
         201:
           description: item deleted
           schema:
-              $ref: '#/definitions/Response' 
-              type: object
-              properties: 
-                data:
-                  type: object
-                  $ref: '#/definitions/shopping_cart'
+            $ref: "#/definitions/Response"
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: "#/definitions/shopping_cart"
         400:
           description: invalid input, object invalid
           schema:
-              $ref: '#/definitions/Response' 
-              type: object
-              properties: 
-                data:
-                  type: object
-                  $ref: '#/definitions/shopping_cart'
+            $ref: "#/definitions/Response"
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: "#/definitions/shopping_cart"
         409:
           description: item not exist
           schema:
-              $ref: '#/definitions/Response' 
-              type: object
-              properties: 
-                data:
-                  type: object
-                  $ref: '#/definitions/shopping_cart'
+            $ref: "#/definitions/Response"
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: "#/definitions/shopping_cart"
   /orders/{order_id}:
     get:
       tags:
@@ -392,33 +391,33 @@ paths:
         200:
           description: search results matching criteria
           schema:
-              type: object
-              properties: 
-                code:
-                  type: string
-                status:
-                  type: string
-                message:
-                  type: string
-                data:
-                  type: array
-                  items:
-                    $ref: '#/definitions/order'
+            type: object
+            properties:
+              code:
+                type: string
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: "#/definitions/order"
         400:
           description: bad input parameter
           schema:
-              type: object
-              properties: 
-                code:
-                  type: string
-                status:
-                  type: string
-                message:
-                  type: string
-                data:
-                  type: array
-                  items:
-                    $ref: '#/definitions/order'
+            type: object
+            properties:
+              code:
+                type: string
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: "#/definitions/order"
   /orders:
     get:
       tags:
@@ -443,36 +442,36 @@ paths:
         200:
           description: search results matching criteria
           schema:
-              type: object
-              properties: 
-                code:
-                  type: string
-                status:
-                  type: string
-                message:
-                  type: string
-                data:
-                  type: array
-                  items:
-                    $ref: '#/definitions/order'
+            type: object
+            properties:
+              code:
+                type: string
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: "#/definitions/order"
         400:
           description: bad input parameter
           schema:
-              type: object
-              properties: 
-                code:
-                  type: string
-                status:
-                  type: string
-                message:
-                  type: string
-                data:
-                  type: array
-                  items:
-                    $ref: '#/definitions/order'
+            type: object
+            properties:
+              code:
+                type: string
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: "#/definitions/order"
     post:
       tags:
-      - developers
+        - developers
       summary: adds an order
       operationId: add an order
       description: Adds an order to the system
@@ -481,57 +480,57 @@ paths:
       produces:
         - application/json
       parameters:
-      - in: header
-        name: authorization
-        description: token
-        required : true
-        type : string
-      - in: body
-        name: item
-        description: Inventory item to add
-        required : true
-        schema:
-          type: object
-          properties:
-            payment_service_id:
-              type: integer
-            address_id:
-              type: integer
-            courier_id:
-              type: integer 
-            items: 
-              type: array
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item
+          description: Inventory item to add
+          required: true
+          schema:
+            type: object
+            properties:
+              payment_service_id:
+                type: integer
+              address_id:
+                type: integer
+              courier_id:
+                type: integer
               items:
-                $ref: '#/definitions/Item'
+                type: array
+                items:
+                  $ref: "#/definitions/Item"
       responses:
         201:
           description: order created
           schema:
-              $ref: '#/definitions/Response' 
-              type: object
-              properties: 
-                data:
-                  type: object
-                  $ref: "#/definitions/order"
-                payment:
-                  type: object
-                  $ref: "#/definitions/Payment"
+            $ref: "#/definitions/Response"
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: "#/definitions/order"
+              payment:
+                type: object
+                $ref: "#/definitions/Payment"
         400:
           description: invalid input, object invalid
           schema:
-              $ref: '#/definitions/Response' 
-              type: object
-              properties: 
-                data:
-                  type: object
-                  $ref: "#/definitions/order"
-                payment:
-                  type: object
-                  $ref: "#/definitions/Payment"
+            $ref: "#/definitions/Response"
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: "#/definitions/order"
+              payment:
+                type: object
+                $ref: "#/definitions/Payment"
     delete:
       tags:
-      - developers
-      summary: delete order item 
+        - developers
+      summary: delete order item
       operationId: delete order
       description: delete an order from the system
       consumes:
@@ -558,46 +557,81 @@ paths:
         201:
           description: order deleted
           schema:
-              $ref: '#/definitions/Response' 
-              type: object
-              properties: 
-                data:
-                  type: object
-                  $ref: "#/definitions/order"
-                payment:
-                  type: object
-                  $ref: "#/definitions/Payment"
+            $ref: "#/definitions/Response"
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: "#/definitions/order"
+              payment:
+                type: object
+                $ref: "#/definitions/Payment"
         400:
           description: invalid input, object invalid
           schema:
-              $ref: '#/definitions/Response' 
-              type: object
-              properties: 
-                data:
-                  type: object
-                  $ref: "#/definitions/order"
-                payment:
-                  type: object
-                  $ref: "#/definitions/Payment"
+            $ref: "#/definitions/Response"
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: "#/definitions/order"
+              payment:
+                type: object
+                $ref: "#/definitions/Payment"
         409:
           description: order not exist
           schema:
-              $ref: '#/definitions/Response' 
-              type: object
-              properties: 
-                data:
-                  type: object
-                  $ref: "#/definitions/order"
-                payment:
-                  type: object
-                  $ref: "#/definitions/Payment"
-  /register:
+            $ref: "#/definitions/Response"
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: "#/definitions/order"
+              payment:
+                type: object
+                $ref: "#/definitions/Payment"
+  /users:
+    get:
+      tags:
+        - Users
+      summary: get all users data
+      operationId: get all users data
+      description: get users data from database
+      produces:
+        - application/json
+      responses:
+        201:
+          description: success
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+        400:
+          description: invalid input, object invalid
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
     post:
       tags:
-        - developer
-      summary: register user account
-      operationId: register user account
-      description: register user account to the system
+        - Users
+      summary: register user
+      operationId: register user
+      description: register user to the system
       consumes:
         - application/json
       produces:
@@ -605,13 +639,13 @@ paths:
       parameters:
         - in: body
           name: register user
-          description: register user account
+          description: register user
           required: true
           schema:
             $ref: "#/definitions/RegisterUser"
       responses:
         201:
-          description: account created
+          description: user created
           schema:
             type: object
             properties:
@@ -621,7 +655,7 @@ paths:
                 type: string
               message:
                 type: string
-              data: 
+              data:
                 type: object
         400:
           description: invalid input, object invalid
@@ -634,12 +668,128 @@ paths:
                 type: string
               message:
                 type: string
-              data: 
+              data:
                 type: object
+  /users/{user_id}:
+    get:
+      tags:
+        - Users
+      summary: get user data by id
+      operationId: get user data by id
+      description: get user data by id from database
+      produces:
+        - application/json
+      responses:
+        200:
+          description: success
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+        400:
+          description: invalid input
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+    put:
+      tags:
+        - Users
+      summary: update user data by id
+      operationId: update user data
+      description: update user data to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: update user
+          description: update user
+          required: true
+          schema:
+            $ref: "#/definitions/RegisterUser"
+      responses:
+        200:
+          description: user updated successfully
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+        400:
+          description: invalid input, object invalid
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+    delete:
+      tags:
+        - Users
+      summary: delete user by id
+      operationId: delete user
+      description: delete user to the system
+      produces:
+        - application/json
+      responses:
+        200:
+          description: user deleted successfully
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+        400:
+          description: invalid input
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+
   /login:
     post:
       tags:
-        - developer
+        - Auth
       summary: login user account
       operationId: login user account
       description: login user account to the system
@@ -666,7 +816,7 @@ paths:
                 type: string
               message:
                 type: string
-              data: 
+              data:
                 type: object
                 $ref: "#/definitions/CustomerInfo"
         400:
@@ -680,51 +830,51 @@ paths:
                 type: string
               message:
                 type: string
-              data: 
+              data:
                 type: object
                 $ref: "#/definitions/CustomerInfo"
   /payments:
     get:
       tags:
-      - developers
+        - developers
       summary: payment list
       operationId: payment item
       description: |
         By passing in the appropriate options, you can search for
         certain available payment
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: header
-        name: authorization
-        required: true
-        type: string
-      - in: query
-        name: payment_id
-        description: pass an optional search string for looking up item
-        required: false
-        type: string
-      - in: query
-        name: order_id
-        description: order id from order
-        required: false
-        type: string
-      - in: query
-        name: customer_id
-        description: customer id from customer
-        required: false
-        type: string
-      - in: query
-        name: status
-        description: status
-        type: integer
-        format: uint32
+        - in: header
+          name: authorization
+          required: true
+          type: string
+        - in: query
+          name: payment_id
+          description: pass an optional search string for looking up item
+          required: false
+          type: string
+        - in: query
+          name: order_id
+          description: order id from order
+          required: false
+          type: string
+        - in: query
+          name: customer_id
+          description: customer id from customer
+          required: false
+          type: string
+        - in: query
+          name: status
+          description: status
+          type: integer
+          format: uint32
       responses:
         200:
           description: search results matching criteria
           schema:
             type: object
-            properties: 
+            properties:
               code:
                 type: integer
               status:
@@ -733,13 +883,13 @@ paths:
                 type: string
               data:
                 type: array
-                items: 
-                  $ref: '#/definitions/Payment'
+                items:
+                  $ref: "#/definitions/Payment"
         400:
           description: bad input parameter
           schema:
             type: object
-            properties: 
+            properties:
               code:
                 type: integer
               status:
@@ -748,35 +898,35 @@ paths:
                 type: string
               data:
                 type: array
-                items: 
-                  $ref: '#/definitions/Payment'
+                items:
+                  $ref: "#/definitions/Payment"
   /payments/{payment_id}:
     get:
       tags:
-      - developers
+        - developers
       summary: payment list
       operationId: payment item
       description: |
         By passing in the appropriate options, you can search for
         certain available payment
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: header
-        name: authorization
-        required: true
-        type: string
-      - in: path
-        name: payment_id
-        description: pass an optional search integer for looking up payment
-        required: true
-        type: integer
+        - in: header
+          name: authorization
+          required: true
+          type: string
+        - in: path
+          name: payment_id
+          description: pass an optional search integer for looking up payment
+          required: true
+          type: integer
       responses:
         200:
           description: search results matching criteria
           schema:
             type: object
-            properties: 
+            properties:
               code:
                 type: integer
               status:
@@ -785,13 +935,13 @@ paths:
                 type: string
               data:
                 type: array
-                items: 
-                  $ref: '#/definitions/Payment'
+                items:
+                  $ref: "#/definitions/Payment"
         400:
           description: bad input parameter
           schema:
             type: object
-            properties: 
+            properties:
               code:
                 type: integer
               status:
@@ -800,37 +950,37 @@ paths:
                 type: string
               data:
                 type: array
-                items: 
-                  $ref: '#/definitions/Payment'
+                items:
+                  $ref: "#/definitions/Payment"
   /courier:
     get:
       tags:
-      - developers
+        - developers
       summary: courier list
       operationId: courier courier
       description: |
         By passing in the appropriate options, you can search for
         certain available courier
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: header
-        name: authorization
-        required: true
-        type: string
+        - in: header
+          name: authorization
+          required: true
+          type: string
       responses:
         200:
           description: search results matching criteria
           schema:
             type: array
             items:
-              $ref: '#/definitions/Courier'
+              $ref: "#/definitions/Courier"
         400:
           description: bad input parameter
   /address:
     get:
       tags:
-      - developers
+        - developers
       summary: get address
       operationId: get address
       # description: |
@@ -839,20 +989,20 @@ paths:
       produces:
         - application/json
       parameters:
-      - in: header
-        name: authorization
-        required: true
-        type: string
-      - in: query
-        name: address_id
-        description: pass an optional search string for looking up address
-        required: false
-        type: integer
-      - in: query
-        name: name
-        description: pass an optional search string for looking up address
-        required: false
-        type: string
+        - in: header
+          name: authorization
+          required: true
+          type: string
+        - in: query
+          name: address_id
+          description: pass an optional search string for looking up address
+          required: false
+          type: integer
+        - in: query
+          name: name
+          description: pass an optional search string for looking up address
+          required: false
+          type: string
       responses:
         200:
           description: search results matching criteria
@@ -865,10 +1015,10 @@ paths:
                 type: string
               message:
                 type: string
-              data: 
+              data:
                 type: array
                 items:
-                  $ref: '#/definitions/Address'
+                  $ref: "#/definitions/Address"
         400:
           description: bad input parameter
           schema:
@@ -880,37 +1030,37 @@ paths:
                 type: string
               message:
                 type: string
-              data: 
+              data:
                 type: array
                 items:
-                  $ref: '#/definitions/Address'
+                  $ref: "#/definitions/Address"
     post:
       tags:
-      - developers
+        - developers
       summary: adds an address item
       operationId: addaddress
       description: Adds an address to the system
       consumes:
-      - application/json
+        - application/json
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: header
-        name: authorization
-        description: authorization token
-        required:  true
-        type: string
-      - in: body
-        name: addressItem
-        description: address item to add
-        required: true
-        schema:
-          type: object
-          properties: 
-            address:
-              type: string
-            name:
-              type: string
+        - in: header
+          name: authorization
+          description: authorization token
+          required: true
+          type: string
+        - in: body
+          name: addressItem
+          description: address item to add
+          required: true
+          schema:
+            type: object
+            properties:
+              address:
+                type: string
+              name:
+                type: string
       responses:
         201:
           description: address created
@@ -923,8 +1073,8 @@ paths:
                 type: string
               message:
                 type: string
-              data: 
-                  $ref: '#/definitions/Address'
+              data:
+                $ref: "#/definitions/Address"
         400:
           description: invalid input, object invalid
           schema:
@@ -936,8 +1086,8 @@ paths:
                 type: string
               message:
                 type: string
-              data: 
-                  $ref: '#/definitions/Address'
+              data:
+                $ref: "#/definitions/Address"
         409:
           description: an existing address already exists
           schema:
@@ -949,20 +1099,20 @@ paths:
                 type: string
               message:
                 type: string
-              data: 
-                  $ref: '#/definitions/Address'
+              data:
+                $ref: "#/definitions/Address"
   /address/{address_id}:
-      get:
-        tags:
+    get:
+      tags:
         - developers
-        summary: get address
-        operationId: get address
-        # description: |
-        #   By passing in the appropriate options, you can search for
-        #   certain available item
-        produces:
-          - application/json
-        parameters:
+      summary: get address
+      operationId: get address
+      # description: |
+      #   By passing in the appropriate options, you can search for
+      #   certain available item
+      produces:
+        - application/json
+      parameters:
         - in: header
           name: authorization
           required: true
@@ -972,37 +1122,37 @@ paths:
           description: pass an optional search string for looking up address
           required: true
           type: integer
-        responses:
-          200:
-            description: search results matching criteria
-            schema:
-              type: object
-              properties:
-                code:
-                  type: integer
-                status:
-                  type: string
-                message:
-                  type: string
-                data: 
-                  type: array
-                  items:
-                    $ref: '#/definitions/Address'
-          400:
-            description: bad input parameter
-            schema:
-              type: object
-              properties:
-                code:
-                  type: integer
-                status:
-                  type: string
-                message:
-                  type: string
-                data: 
-                  type: array
-                  items:
-                    $ref: '#/definitions/Address'      
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: "#/definitions/Address"
+        400:
+          description: bad input parameter
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: "#/definitions/Address"
 definitions:
   Item:
     type: object
@@ -1024,8 +1174,8 @@ definitions:
         format: uint32
   shopping_cart:
     type: array
-    items: 
-      $ref: '#/definitions/Item'
+    items:
+      $ref: "#/definitions/Item"
   order:
     type: object
     properties:
@@ -1072,7 +1222,7 @@ definitions:
         example: "password123"
   Payment:
     type: object
-    properties: 
+    properties:
       payment_id:
         type: integer
       transfer_code:
@@ -1086,26 +1236,26 @@ definitions:
       total_amount:
         type: integer
   Courier:
-    type : object
-    properties: 
+    type: object
+    properties:
       courier_id:
         type: integer
       company_name:
         type: string
   Address:
-    type : object
-    properties: 
+    type: object
+    properties:
       address_id:
-        type : string
+        type: string
       name:
         type: string
       address:
-        type  : string
+        type: string
   Response:
     type: object
-    properties: 
+    properties:
       code:
-        type : integer
+        type: integer
       status:
         type: string
       message:
@@ -1123,11 +1273,6 @@ definitions:
         type: string
       token:
         type: string
-      
-
-      
-
-      
 
 # Added by API Auto Mocking Plugin
 host: virtserver.swaggerhub.com
