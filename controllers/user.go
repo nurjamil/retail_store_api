@@ -3,6 +3,7 @@ package controllers
 import (
 	"net/http"
 	"retailStore/lib/db"
+	"retailStore/models"
 
 	"github.com/labstack/echo"
 )
@@ -80,5 +81,19 @@ func UpdateUserByIdController(c echo.Context) error {
 	return c.JSON(http.StatusCreated, map[string]interface{}{
 		"message": "user accoount updated",
 		"data":    user,
+	})
+}
+
+
+func LoginUserController(c echo.Context) error {
+	user := models.User{}
+	c.Bind(&user)
+	users, err := db.LoginUser(&user)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"status":"success login",
+		"users":users,
 	})
 }
