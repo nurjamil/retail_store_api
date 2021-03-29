@@ -1,13 +1,19 @@
 package routes
 
 import (
+	"retailStore/constants"
 	"retailStore/controllers"
+	"retailStore/middlewares"
 
 	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
 )
 
 func New() *echo.Echo {
 	e := echo.New()
+	e.Pre(middleware.RemoveTrailingSlash())
+	middlewares.LogMiddlewares(e)
+
 	e.GET("/users", controllers.GetUsersController)
 	e.GET("/users/:id", controllers.GetUserByIdController)
 
@@ -21,6 +27,9 @@ func New() *echo.Echo {
 
 	e.GET("/shoppingcarts", controllers.GetShoppingCartController)
 	//e.POST("/shoppingcarts", controllers.PostItemToShoppingCartController)
+
+	eJWT := e.Group("") 
+	eJWT.Use(middleware.JWT([]byte(constants.SECRET_JWT)))
 
 	return e
 }
