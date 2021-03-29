@@ -17,7 +17,7 @@ func InitDB() {
 		"DB_Password": "root",
 		"DB_Port":     "3306",
 		"DB_Host":     "localhost",
-		"DB_Name":     "retailStore",
+		"DB_Name":     "retail_store_db",
 	}
 
 	connectionString :=
@@ -37,8 +37,6 @@ func InitDB() {
 	InitialMigration()
 }
 
-
-
-func InitialMigration(){
-	DB.AutoMigrate(&models.User{})
+func InitialMigration() {
+	DB.AutoMigrate(&models.User{}, &models.Address{}, &models.Courier{}, &models.Item{}, &models.ItemCategory{}, &models.Order{}, &models.OrderItem{}, &models.Payment{}, &models.PaymentService{}, &models.Shipment{}, &models.ShoppingCart{}, &models.ShoppingCartList{})
 }

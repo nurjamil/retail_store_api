@@ -9,49 +9,57 @@ import (
 )
 
 func GetUsers() (interface{}, interface{}) {
-	users:= []models.User{}
+	users := []models.User{}
 
-	if err:= config.DB.Find(&users).Error; err != nil {
-		return nil,err
+	if err := config.DB.Find(&users).Error; err != nil {
+		return nil, err
 	}
-	return users,nil
+	return users, nil
 }
 func GetUserById(c echo.Context) (interface{}, interface{}) {
-	id,_ := strconv.Atoi(c.Param("id"))
-	user:= models.User{}
+	id, _ := strconv.Atoi(c.Param("id"))
+	user := models.User{}
 
-	if err:= config.DB.Find(&user,id).Error; err != nil {
-		return nil,err
+	if err := config.DB.Find(&user, id).Error; err != nil {
+		return nil, err
 	}
-	return user,nil
+	return user, nil
 }
 
-func CreateUser(c echo.Context) (interface{}, interface{}){
-	user:=models.User{}
+func CreateUser(c echo.Context) (interface{}, interface{}) {
+	user := models.User{}
 	c.Bind(&user)
-	if err:= config.DB.Save(&user).Error; err != nil {
-		return nil,err
+	if err := config.DB.Create(&user).Error; err != nil {
+		return nil, err
 	}
-	return user,nil
+	if err := config.DB.Save(&user).Error; err != nil {
+		return nil, err
+	}
+	user.ShoppingCart.UserID = user.ID
+
+	if err := config.DB.Create(&user.ShoppingCart).Error; err != nil {
+		return nil, err
+	}
+	return user, nil
 }
 
-func DeleteUserById(c echo.Context)(interface{}, interface{}){
-	id,_ := strconv.Atoi(c.Param("id"))
-	user:= models.User{}
+func DeleteUserById(c echo.Context) (interface{}, interface{}) {
+	id, _ := strconv.Atoi(c.Param("id"))
+	user := models.User{}
 
-	if err:= config.DB.Delete(&user,id).Error; err != nil {
-		return nil,err
+	if err := config.DB.Delete(&user, id).Error; err != nil {
+		return nil, err
 	}
-	return user,nil
+	return user, nil
 }
 
-func UpdateUserById(c echo.Context) (interface{}, interface{}){
-	id,_ := strconv.Atoi(c.Param("id"))
-	user:=models.User{}
+func UpdateUserById(c echo.Context) (interface{}, interface{}) {
+	id, _ := strconv.Atoi(c.Param("id"))
+	user := models.User{}
 	c.Bind(&user)
-	user.Id = id
-	if err:= config.DB.Save(&user).Error; err != nil {
-		return nil,err
+	user.ID = uint(id)
+	if err := config.DB.Save(&user).Error; err != nil {
+		return nil, err
 	}
-	return user,nil
+	return user, nil
 }

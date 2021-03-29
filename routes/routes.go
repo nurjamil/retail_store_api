@@ -14,5 +14,13 @@ func New() *echo.Echo {
 	e.POST("/users", controllers.CreateUserController)
 	e.DELETE("/users/:id", controllers.DeleteUserByIdController)
 	e.PUT("/users/:id", controllers.UpdateUserByIdController)
+
+	e.GET("/items/:id", controllers.GetItemWIthParamsController)
+	e.GET("/items", controllers.GetItemController)
+	e.POST("/items", controllers.PostItemController)
+
+	e.GET("/shoppingcarts", controllers.GetShoppingCartController)
+	//e.POST("/shoppingcarts", controllers.PostItemToShoppingCartController)
+
 	return e
 }

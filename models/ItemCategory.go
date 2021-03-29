@@ -1,0 +1,15 @@
+package models
+
+import (
+	"time"
+
+	"gorm.io/gorm"
+)
+
+type ItemCategory struct {
+	ID           uint           `gorm:"primaryKey" json:"item_category_id" form:"item_category_id"`
+	CreatedAt    time.Time      `json:"created_at" form:"created_at"`
+	UpdatedAt    time.Time      `json:"updated_at" form:"updated_at"`
+	DeletedAt    gorm.DeletedAt `gorm:"index" json:"deleted_at" form:"deleted_at"`
+	CategoryName string         `gorm:"type:varchar(100);unique;not null" json:"category_name" form:"category_name"`
+}
