@@ -27,8 +27,16 @@ func New() *echo.Echo {
 	e.GET("/items/:id", controllers.GetItemWIthParamsController)
 	e.POST("/items", controllers.PostItemController) // admin
 
-	e.GET("/shoppingcarts", controllers.GetShoppingCartController) //authenticated user
-	//e.POST("/shoppingcarts", controllers.PostItemToShoppingCartController)
+
+	e.GET("/shoppingcarts", controllers.GetShoppingCartController)
+	e.POST("/shoppingcarts", controllers.PostItemToShoppingCartController)
+
+	e.GET("/couriers", controllers.GetCouriersController)
+	e.GET("/couriers/:id", controllers.GetCourierByIdController)
+	e.DELETE("/couriers/:id", controllers.DeleteCourierByIdController)
+	e.PUT("/couriers/:id", controllers.UpdateCourierByIdController)
+	e.POST("/couriers", controllers.CreateCourierController)
+
 
 	eJWT := e.Group("") 
 	eJWT.Use(middleware.JWT([]byte(constants.SECRET_JWT)))

@@ -30,9 +30,6 @@ func GetUserById(c echo.Context) (interface{}, interface{}) {
 func CreateUser(c echo.Context) (interface{}, interface{}) {
 	user := models.User{}
 	c.Bind(&user)
-	if err := config.DB.Create(&user).Error; err != nil {
-		return nil, err
-	}
 	if err := config.DB.Save(&user).Error; err != nil {
 		return nil, err
 	}
