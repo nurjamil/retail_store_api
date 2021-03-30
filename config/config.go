@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"os"
 	"retailStore/models"
 
 	"gorm.io/driver/mysql"
@@ -12,21 +13,13 @@ var DB *gorm.DB
 
 func InitDB() {
 
-	config := map[string]string{
-		"DB_Username": "root",
-		"DB_Password": "root",
-		"DB_Port":     "3306",
-		"DB_Host":     "localhost",
-		"DB_Name":     "retail_store_db",
-	}
-
 	connectionString :=
 		fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
-			config["DB_Username"],
-			config["DB_Password"],
-			config["DB_Host"],
-			config["DB_Port"],
-			config["DB_Name"],
+			os.Getenv("DB_Username"),
+			os.Getenv("DB_Password"),
+			os.Getenv("DB_Host"),
+			os.Getenv("DB_Port"),
+			os.Getenv("DB_Name"),
 		)
 	var err error
 	DB, err = gorm.Open(mysql.Open(connectionString), &gorm.Config{})
