@@ -14,7 +14,7 @@ func InitDB() {
 
 	config := map[string]string{
 		"DB_Username": "root",
-		"DB_Password": "",
+		"DB_Password": "root",
 		"DB_Port":     "3306",
 		"DB_Host":     "localhost",
 		"DB_Name":     "retail_store_db",

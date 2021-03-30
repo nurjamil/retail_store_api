@@ -16,7 +16,7 @@ type Item struct {
 	Stock          uint           `json:"stock" form:"stock"`
 	Price          uint           `json:"price" form:"price"`
 	ItemCategoryID uint           `gorm:"not null" json:"item_category_id" form:"item_category_id"`
-	ItemCategory   ItemCategory
+	ItemCategory   ItemCategory   `json:"item_category" form:"item_category"`
 }
 type ItemAPI struct {
 	ID           uint
