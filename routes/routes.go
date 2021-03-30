@@ -16,12 +16,11 @@ func New() *echo.Echo {
 	
 	e.POST("/register", controllers.CreateUserController)
 	e.POST("/login", controllers.LoginUserController)
-	
+
 	e.GET("/users", controllers.GetUsersController)
 	e.GET("/users/:id", controllers.GetUserByIdController)
 	e.DELETE("/users/:id", controllers.DeleteUserByIdController)
 	e.PUT("/users/:id", controllers.UpdateUserByIdController)
-
 
 	e.GET("/items", controllers.GetItemController)
 	e.GET("/items/:id", controllers.GetItemWIthParamsController)
@@ -40,6 +39,10 @@ func New() *echo.Echo {
 
 	eJWT := e.Group("") 
 	eJWT.Use(middleware.JWT([]byte(constants.SECRET_JWT)))
+	eJWT.POST("/address", controllers.CreateAddressController)
+	eJWT.GET("/address", controllers.GetAddressController)
+	eJWT.GET("/address/:id", controllers.GetAddressByIdController)
+	
 
 	return e
 }
