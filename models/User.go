@@ -12,11 +12,11 @@ type User struct {
 	UpdatedAt    time.Time      `json:"updated_at" form:"updated_at"`
 	DeletedAt    gorm.DeletedAt `gorm:"index" json:"deleted_at" form:"deleted_at"`
 	Username     string         `gorm:"type:varchar(50);unique;not null" json:"username" form:"username"`
-	Name         string         `gorm:"type:varchar(50);unique;not null" json:"name" form:"name"`
+	Name         string         `gorm:"type:varchar(50);not null" json:"name" form:"name"`
 	Email        string         `gorm:"type:varchar(100);unique;not null" json:"email" form:"email"`
-	Password     string         `gorm:"type:varchar(100);unique;not null" json:"password" form:"password"`
+	Password     string         `gorm:"type:varchar(100);not null" json:"password" form:"password"`
 	PhoneNumber  string         `gorm:"type:varchar(50);unique;not null" json:"phone_number" form:"phone_number"`
-	Token        string         `gorm:"type:varchar(100);unique;not null" json:"token" form:"token"`
+	Token        string         `gorm:"type:varchar(100);not null" json:"token" form:"token"`
 	Address      []Address      `json:"address" form:"address"`
 	ShoppingCart ShoppingCart   `json:"shopping_cart" form:"shopping_cart"`
 }

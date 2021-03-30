@@ -13,6 +13,7 @@ func CreateItem(c echo.Context) (interface{}, interface{}) {
 	if err := config.DB.Save(&item).Error; err != nil {
 		return nil, err
 	}
+	config.DB.Joins("ItemCategory").Where(&item).First(&item)
 
 	return item, nil
 }

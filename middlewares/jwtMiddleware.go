@@ -1,7 +1,6 @@
 package middlewares
 
 import (
-	"fmt"
 	"retailStore/constants"
 	"time"
 
@@ -19,12 +18,11 @@ func CreateToken(userId int) (string, error) {
 	return token.SignedString([]byte(constants.SECRET_JWT))
 }
 
-func ExtractTokenUserId(c echo.Context) int {
+func ExtractTokenUserId(c echo.Context) float64 {
 	user := c.Get("user").(*jwt.Token)
-	fmt.Println("user",user)
 	if user.Valid {
 		claims := user.Claims.(jwt.MapClaims)
-		userId := claims["userId"].(int)
+		userId := claims["userId"].(float64)
 		return userId
 	}
 	return 0
