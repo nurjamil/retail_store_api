@@ -20,7 +20,7 @@ func New() *echo.Echo {
 	e.POST("/items", controllers.PostItemController)
 
 	e.GET("/shoppingcarts", controllers.GetShoppingCartController)
-	//e.POST("/shoppingcarts", controllers.PostItemToShoppingCartController)
+	e.POST("/shoppingcarts", controllers.PostItemToShoppingCartController)
 
 	return e
 }

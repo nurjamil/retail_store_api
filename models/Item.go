@@ -19,6 +19,7 @@ type Item struct {
 	ItemCategory   ItemCategory
 }
 type ItemAPI struct {
+	ID           uint
 	Name         string
 	Description  string
 	Stock        uint
