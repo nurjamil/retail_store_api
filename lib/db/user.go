@@ -2,6 +2,7 @@ package db
 
 import (
 	"retailStore/config"
+	"retailStore/middlewares"
 	"retailStore/models"
 	"strconv"
 
@@ -59,4 +60,20 @@ func UpdateUserById(c echo.Context) (interface{}, interface{}) {
 		return nil, err
 	}
 	return user, nil
+}
+
+
+func LoginUser(user *models.User) (interface{}, error){
+	var err error
+	if err = config.DB.Where("username = ? AND password = ?", user.Username, user.Password).First(user).Error; err != nil {
+		return nil, err
+	}
+	user.Token, err = middlewares.CreateToken(int(user.ID))
+	if err != nil {
+		return nil,err
+	}
+	if err := config.DB.Save(user).Error; err!=nil{
+		return nil, err
+	}
+	return user,nil
 }

@@ -3,13 +3,12 @@ package controllers
 import (
 	"net/http"
 	"retailStore/lib/db"
-	"retailStore/models"
 
 	"github.com/labstack/echo"
 )
 
-func GetUsersController(c echo.Context) error {
-	users, err := db.GetUsers()
+func GetCouriersController(c echo.Context) error {
+	couriers, err := db.GetCouriers()
 
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
@@ -19,11 +18,11 @@ func GetUsersController(c echo.Context) error {
 	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"status": "success",
-		"data":   users,
+		"data":   couriers,
 	})
 }
-func GetUserByIdController(c echo.Context) error {
-	user, err := db.GetUserById(c)
+func GetCourierByIdController(c echo.Context) error {
+	courier, err := db.GetCourierById(c)
 
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
@@ -33,14 +32,13 @@ func GetUserByIdController(c echo.Context) error {
 	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"status": "success",
-		"data":   user,
+		"data":   courier,
 	})
 }
 
-func CreateUserController(c echo.Context) error {
-	user, err := db.CreateUser(c)
+func CreateCourierController(c echo.Context) error {
+	courier, err := db.CreateCourier(c)
 
-	// c.Bind(&user)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
 			"status":  "failed",
@@ -48,13 +46,13 @@ func CreateUserController(c echo.Context) error {
 		})
 	}
 	return c.JSON(http.StatusCreated, map[string]interface{}{
-		"message": "user accoount created",
-		"data":    user,
+		"message": "courier created",
+		"data":    courier,
 	})
 }
 
-func DeleteUserByIdController(c echo.Context) error {
-	user, err := db.DeleteUserById(c)
+func DeleteCourierByIdController(c echo.Context) error {
+	courier, err := db.DeleteCourierById(c)
 
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
@@ -64,14 +62,13 @@ func DeleteUserByIdController(c echo.Context) error {
 	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"status": "success",
-		"data":   user,
+		"data":   courier,
 	})
 }
 
-func UpdateUserByIdController(c echo.Context) error {
-	user, err := db.UpdateUserById(c)
+func UpdateCourierByIdController(c echo.Context) error {
+	courier, err := db.UpdateCourierById(c)
 
-	// c.Bind(&user)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
 			"status":  "failed",
@@ -79,21 +76,8 @@ func UpdateUserByIdController(c echo.Context) error {
 		})
 	}
 	return c.JSON(http.StatusCreated, map[string]interface{}{
-		"message": "user accoount updated",
-		"data":    user,
+		"message": "courier updated",
+		"data":    courier,
 	})
 }
 
-
-func LoginUserController(c echo.Context) error {
-	user := models.User{}
-	c.Bind(&user)
-	users, err := db.LoginUser(&user)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
-	}
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status":"success login",
-		"users":users,
-	})
-}
