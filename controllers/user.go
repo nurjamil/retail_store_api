@@ -3,27 +3,15 @@ package controllers
 import (
 	"net/http"
 	"retailStore/lib/db"
+	"retailStore/middlewares"
 	"retailStore/models"
 
 	"github.com/labstack/echo"
 )
 
-func GetUsersController(c echo.Context) error {
-	users, err := db.GetUsers()
-
-	if err != nil {
-		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"status":  "failed",
-			"message": "bad request",
-		})
-	}
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status": "success",
-		"data":   users,
-	})
-}
-func GetUserByIdController(c echo.Context) error {
-	user, err := db.GetUserById(c)
+func GetUserDetailController(c echo.Context) error {
+	id := middlewares.ExtractTokenUserId(c)
+	user, err := db.GetUserDetail(int(id))
 
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
@@ -53,25 +41,10 @@ func CreateUserController(c echo.Context) error {
 	})
 }
 
-func DeleteUserByIdController(c echo.Context) error {
-	user, err := db.DeleteUserById(c)
+func UpdateUserDetailController(c echo.Context) error {
+	id := middlewares.ExtractTokenUserId(c)
+	user, err := db.UpdateUserDetail(int(id), c)
 
-	if err != nil {
-		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"status":  "failed",
-			"message": "bad request",
-		})
-	}
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status": "success",
-		"data":   user,
-	})
-}
-
-func UpdateUserByIdController(c echo.Context) error {
-	user, err := db.UpdateUserById(c)
-
-	// c.Bind(&user)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
 			"status":  "failed",
@@ -88,12 +61,12 @@ func UpdateUserByIdController(c echo.Context) error {
 func LoginUserController(c echo.Context) error {
 	user := models.User{}
 	c.Bind(&user)
-	users, err := db.LoginUser(&user)
+	loggedInUser, err := db.LoginUser(&user)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"status":"success login",
-		"users":users,
+		"users":loggedInUser,
 	})
 }

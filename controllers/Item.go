@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"retailStore/config"
 	"retailStore/lib/db"
+	"retailStore/middlewares"
 	"retailStore/models"
 	"strconv"
 
@@ -52,21 +53,29 @@ func GetItemController(c echo.Context) error {
 }
 
 func PostItemController(c echo.Context) error {
-	item, err := db.CreateItem(c)
+	role := middlewares.ExtractTokenUserRole(c)
+	if role == "admin" {
+		item, err := db.CreateItem(c)
 
-	if err != nil {
-		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"code":    http.StatusBadRequest,
-			"status":  "failed",
-			"message": "bad request",
-			"data":    "",
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, map[string]interface{}{
+				"code":    http.StatusBadRequest,
+				"status":  "failed",
+				"message": "bad request",
+				"data":    "",
+			})
+		}
+		return c.JSON(http.StatusCreated, map[string]interface{}{
+			"code":    http.StatusCreated,
+			"status":  "success",
+			"message": "item created",
+			"data":    item,
 		})
+	
 	}
-	return c.JSON(http.StatusCreated, map[string]interface{}{
-		"code":    http.StatusCreated,
-		"status":  "success",
-		"message": "item created",
-		"data":    item,
+	return c.JSON(http.StatusUnauthorized, map[string]interface{}{
+		"code":    http.StatusUnauthorized,
+		"status":  "failed",
+		"message": "you have no permission",
 	})
-
 }

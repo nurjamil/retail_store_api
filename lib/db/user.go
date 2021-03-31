@@ -4,21 +4,11 @@ import (
 	"retailStore/config"
 	"retailStore/middlewares"
 	"retailStore/models"
-	"strconv"
 
 	"github.com/labstack/echo"
 )
 
-func GetUsers() (interface{}, interface{}) {
-	users := []models.User{}
-
-	if err := config.DB.Find(&users).Error; err != nil {
-		return nil, err
-	}
-	return users, nil
-}
-func GetUserById(c echo.Context) (interface{}, interface{}) {
-	id, _ := strconv.Atoi(c.Param("id"))
+func GetUserDetail(id int) (interface{}, error) {
 	user := models.User{}
 
 	if err := config.DB.Find(&user, id).Error; err != nil {
@@ -27,8 +17,10 @@ func GetUserById(c echo.Context) (interface{}, interface{}) {
 	return user, nil
 }
 
-func CreateUser(c echo.Context) (interface{}, interface{}) {
-	user := models.User{}
+func CreateUser(c echo.Context) (interface{}, error) {
+	user := models.User{
+		Role: "user",
+	}
 	c.Bind(&user)
 	if err := config.DB.Save(&user).Error; err != nil {
 		return nil, err
@@ -41,18 +33,7 @@ func CreateUser(c echo.Context) (interface{}, interface{}) {
 	return user, nil
 }
 
-func DeleteUserById(c echo.Context) (interface{}, interface{}) {
-	id, _ := strconv.Atoi(c.Param("id"))
-	user := models.User{}
-
-	if err := config.DB.Delete(&user, id).Error; err != nil {
-		return nil, err
-	}
-	return user, nil
-}
-
-func UpdateUserById(c echo.Context) (interface{}, interface{}) {
-	id, _ := strconv.Atoi(c.Param("id"))
+func UpdateUserDetail(id int,c echo.Context) (interface{}, error) {
 	user := models.User{}
 	c.Bind(&user)
 	user.ID = uint(id)
@@ -68,7 +49,7 @@ func LoginUser(user *models.User) (interface{}, error){
 	if err = config.DB.Where("username = ? AND password = ?", user.Username, user.Password).First(user).Error; err != nil {
 		return nil, err
 	}
-	user.Token, err = middlewares.CreateToken(int(user.ID))
+	user.Token, err = middlewares.CreateToken(int(user.ID), user.Role)
 	if err != nil {
 		return nil,err
 	}
