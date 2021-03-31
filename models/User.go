@@ -16,7 +16,8 @@ type User struct {
 	Email        string         `gorm:"type:varchar(100);unique;not null" json:"email" form:"email"`
 	Password     string         `gorm:"type:varchar(100);not null" json:"password" form:"password"`
 	PhoneNumber  string         `gorm:"type:varchar(50);unique;not null" json:"phone_number" form:"phone_number"`
-	Token        string         `gorm:"type:varchar(100);not null" json:"token" form:"token"`
+	Role  string         `gorm:"type:varchar(50);not null" json:"role" form:"role"`
+	Token        string         `gorm:"type:varchar(255);not null" json:"token" form:"token"`
 	Address      []Address      `json:"address" form:"address"`
 	ShoppingCart ShoppingCart   `json:"shopping_cart" form:"shopping_cart"`
 }

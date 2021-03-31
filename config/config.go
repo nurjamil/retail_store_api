@@ -27,9 +27,17 @@ func InitDB() {
 	if err != nil {
 		panic(err)
 	}
+	// DropTable()
 	InitialMigration()
 }
 
 func InitialMigration() {
 	DB.AutoMigrate(&models.User{}, &models.Address{}, &models.Courier{}, &models.Item{}, &models.ItemCategory{}, &models.Order{}, &models.OrderItem{}, &models.Payment{}, &models.PaymentService{}, &models.Shipment{}, &models.ShoppingCart{}, &models.ShoppingCartList{})
+}
+
+func DropTable(){
+	DB.Migrator().DropTable(&models.User{})
+	DB.Migrator().DropTable(&models.Address{})
+	DB.Migrator().DropTable(&models.ShoppingCart{})
+	DB.Migrator().DropTable(&models.ShoppingCartList{})
 }
