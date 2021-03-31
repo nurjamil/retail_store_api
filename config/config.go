@@ -27,8 +27,7 @@ func InitDB() {
 	if err != nil {
 		panic(err)
 	}
-	// DropTable()
-	InitialMigration()
+	
 }
 
 func InitialMigration() {
