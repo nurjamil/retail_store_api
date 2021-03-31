@@ -17,8 +17,10 @@ type User struct {
 	Password     string         `gorm:"type:varchar(100);not null" json:"password" form:"password"`
 	PhoneNumber  string         `gorm:"type:varchar(50);unique;not null" json:"phone_number" form:"phone_number"`
 	Token        string         `gorm:"type:varchar(100);not null" json:"token" form:"token"`
-	Address      []Address      `json:"address" form:"address"`
-	ShoppingCart ShoppingCart   `json:"shopping_cart" form:"shopping_cart"`
+	Address      []Address      `json:"address,omitempty" form:"address"`
+	ShoppingCart ShoppingCart   `json:"shopping_cart,omitempty" form:"shopping_cart"`
+	Order        Order          `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;" json:"-" form:"order"`
+	Payment      Payment        `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;" json:"-" form:"payment"`
 }
 type APIUser struct {
 	Name  string

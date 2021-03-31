@@ -12,11 +12,10 @@ import (
 func GetShoppingCartController(c echo.Context) error {
 	id := middlewares.ExtractTokenUserId(c)
 	model := models.ShoppingCart{
-		ID: uint(id),
+		UserID: uint(id),
 	}
-
-	shoppingCart := models.ShoppingCart{}
-	err := config.DB.Preload("ShoppingCartList.Item.ItemCategory").Where(&model).First(&shoppingCart)
+	cart := models.ShoppingCart{}
+	err := config.DB.Preload("ShoppingCartList.Item.ItemCategory").Where(&model).First(&cart)
 	if err.Error != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
 			"code":    http.StatusBadRequest,
@@ -30,20 +29,16 @@ func GetShoppingCartController(c echo.Context) error {
 		"code":    http.StatusOK,
 		"status":  "success",
 		"message": "success getting items",
-		"data":    shoppingCart,
+		"data":    cart,
 	})
-
-}
-
-func getUserID() uint {
-	return 18
 }
 
 func PostItemToShoppingCartController(c echo.Context) error {
+	id := middlewares.ExtractTokenUserId(c)
 	cartList := models.ShoppingCartList{}
 	c.Bind(&cartList)
 	cart := models.ShoppingCart{
-		UserID: getUserID(),
+		UserID: uint(id),
 	}
 	if err := config.DB.Where(&cart).First(&cart).Error; err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
@@ -76,5 +71,39 @@ func PostItemToShoppingCartController(c echo.Context) error {
 		"status":  "success",
 		"message": "success getting items",
 		"data":    cart,
+	})
+}
+
+func DeleteItemFromShoppingCartController(c echo.Context) error {
+	id := uint(middlewares.ExtractTokenUserId(c))
+	cart := models.ShoppingCart{
+		UserID: id,
+	}
+	if err := config.DB.Where(&cart).First(&cart).Error; err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"code":    http.StatusBadRequest,
+			"status":  "failed",
+			"message": err,
+			"data":    "",
+		})
+	}
+	items := []models.Item{}
+	c.Bind(&items)
+	for _, oneItem := range items {
+		cartList := models.ShoppingCartList{}
+		if err := config.DB.Where("shopping_cart_id = ? AND item_id = ?", cart.ID, oneItem.ID).Unscoped().Delete(&cartList).Error; err != nil {
+			return c.JSON(http.StatusBadRequest, map[string]interface{}{
+				"code":    http.StatusBadRequest,
+				"status":  "failed",
+				"message": err,
+				"data":    "",
+			})
+		}
+	}
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"code":    http.StatusOK,
+		"status":  "success",
+		"message": "success deleting items",
+		"data":    items,
 	})
 }

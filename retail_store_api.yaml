@@ -292,6 +292,9 @@ paths:
               item_id:
                 type: integer
                 format: uint32
+              quantity:
+                type: integer
+                format: uint32
       responses:
         201:
           description: item created
