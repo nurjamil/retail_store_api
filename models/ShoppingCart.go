@@ -14,3 +14,8 @@ type ShoppingCart struct {
 	ShoppingCartList []ShoppingCartList `json:"shopping_cart_list" form:"shopping_cart_list"`
 	UserID           uint               `json:"user_id" form:"user_id"`
 }
+
+type ShoppingCartAPI struct {
+	ID     uint `gorm:"primaryKey" json:"shopping_cart_id" form:"shopping_cart_id"`
+	UserID uint `json:"user_id" form:"user_id"`
+}
