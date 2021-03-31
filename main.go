@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"retailStore/config"
+	"retailStore/lib/seeders"
 	"retailStore/routes"
 
 	"github.com/joho/godotenv"
@@ -13,7 +14,12 @@ func main() {
 	if err != nil {
 	 fmt.Println("Error loading .env file")
 	}
+
 	config.InitDB()
+	config.DropTable() //reset tables
+	config.InitialMigration()
+
+	seeders.Seed() // seeders for insert categories, paymentservices, and couries. for dev purposes
 
 	e := routes.New()
 
