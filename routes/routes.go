@@ -26,6 +26,12 @@ func New() *echo.Echo {
 	e.PUT("/couriers/:id", controllers.UpdateCourierByIdController)
 	e.POST("/couriers", controllers.CreateCourierController)
 
+	e.GET("/itemCategories", controllers.GetItemCategoriesController)
+	e.GET("/itemCategories/:id", controllers.GetItemCategoryByIdController)
+	e.DELETE("/itemCategories/:id", controllers.DeleteItemCategoryByIdController)
+	e.PUT("/itemCategories/:id", controllers.UpdateItemCategoryByIdController)
+	e.POST("/itemCategories", controllers.CreateItemCategoryController)
+
 	eJWT := e.Group("") 
 	eJWT.Use(middleware.JWT([]byte(os.Getenv("SECRET_JWT"))))
 
