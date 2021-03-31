@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"retailStore/constants"
+	"os"
 	"retailStore/controllers"
 	"retailStore/middlewares"
 
@@ -38,7 +38,7 @@ func New() *echo.Echo {
 
 
 	eJWT := e.Group("") 
-	eJWT.Use(middleware.JWT([]byte(constants.SECRET_JWT)))
+	eJWT.Use(middleware.JWT([]byte(os.Getenv("SECRET_JWT"))))
 	eJWT.POST("/address", controllers.CreateAddressController)
 	eJWT.GET("/address", controllers.GetAddressController)
 	eJWT.GET("/address/:id", controllers.GetAddressByIdController)
