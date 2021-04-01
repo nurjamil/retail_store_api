@@ -3,6 +3,7 @@ package models
 import (
 	"time"
 
+	"github.com/labstack/echo"
 	"gorm.io/gorm"
 )
 
@@ -18,11 +19,22 @@ type Item struct {
 	ItemCategoryID uint           `gorm:"not null" json:"item_category_id" form:"item_category_id"`
 	ItemCategory   ItemCategory   `json:"item_category" form:"item_category"`
 }
-type ItemAPI struct {
-	ID           uint
-	Name         string
-	Description  string
-	Stock        uint
-	Price        uint
-	ItemCategory ItemCategory
+
+//create in database
+func (i *Item) Create(c echo.Context, DB *gorm.DB) error {
+	c.Bind(i)
+	return DB.Save(&i).Error
+}
+
+//find in the database
+func (i *Item) Find(c echo.Context, DB *gorm.DB) error {
+	c.Bind(i)
+	return DB.Where(i).First(i).Error
+}
+
+type ItemResponse struct {
+	Code    uint   `json:"code" form:"code"`
+	Status  string `json:"status" form:"status"`
+	Message string `json:"message" form:"message"`
+	Data    Item   `json:"data" form:"data"`
 }

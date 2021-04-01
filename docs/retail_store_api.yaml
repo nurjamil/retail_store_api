@@ -344,7 +344,9 @@ paths:
           description: Inventory item to add
           required: true
           schema:
-            type: object
+            type: array
+            items:
+              type: object
             properties:
               item_id:
                 type: integer

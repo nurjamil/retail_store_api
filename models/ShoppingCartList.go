@@ -3,6 +3,7 @@ package models
 import (
 	"time"
 
+	"github.com/labstack/echo"
 	"gorm.io/gorm"
 )
 
@@ -15,4 +16,8 @@ type ShoppingCartList struct {
 	ItemID         uint           `json:"item_id" form:"item_id"`
 	Item           Item           `json:"item" form:"item"`
 	Quantity       uint           `json:"quantity" form:"quantity"`
+}
+
+func (s *ShoppingCartList) Find(c echo.Context, DB *gorm.DB) error {
+	return DB.Where(s).First(s).Error
 }

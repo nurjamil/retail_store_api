@@ -10,15 +10,19 @@ import (
 	"github.com/labstack/echo"
 )
 
-func GetPaymentByID(c echo.Context) error {
+func GetPaymentController(c echo.Context) error {
 	id := uint(middlewares.ExtractTokenUserId(c))
-	idPayment, _ := strconv.Atoi(c.Param("id"))
+	idPayment, _ := strconv.Atoi(c.QueryParam("payment_id"))
+	status := c.QueryParam("status")
 	payment := models.Payment{
 		ID:     uint(idPayment),
 		UserID: id,
+		Status: status,
 	}
 
-	if err := config.DB.Where(&payment).First(&payment).Error; err != nil {
+	payments := []models.Payment{}
+
+	if err := config.DB.Where(&payment).Find(&payments).Error; err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
 			"code":    http.StatusBadRequest,
 			"status":  "failed",
@@ -31,6 +35,6 @@ func GetPaymentByID(c echo.Context) error {
 		"code":    http.StatusOK,
 		"status":  "success",
 		"message": "success getting items",
-		"data":    payment,
+		"data":    payments,
 	})
 }

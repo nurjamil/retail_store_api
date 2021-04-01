@@ -16,7 +16,7 @@ func main() {
 	}
 
 	config.InitDB()
-	config.DropTable() //reset tables
+	//config.DropTable() //reset tables
 	config.InitialMigration()
 
 	seeders.Seed() // seeders for insert categories, paymentservices, and couries. for dev purposes
