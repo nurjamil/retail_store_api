@@ -22,3 +22,10 @@ type Order struct {
 	OrderItem        []OrderItem    `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;" json:"order_item" form:"order_item"`
 	Payment          Payment        `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;" json:"payment" form:"payment"`
 }
+
+type ResponseOrder struct {
+	Code    uint
+	Status  string
+	Message string
+	Data    Order
+}

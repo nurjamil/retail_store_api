@@ -33,11 +33,11 @@ func InitDBTest() {
 
 	connectionString :=
 		fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
-			os.Getenv("DB_Username_Test"),
-			os.Getenv("DB_Password_Test"),
-			os.Getenv("DB_Host_Test"),
-			os.Getenv("DB_Port_Test"),
-			os.Getenv("DB_Name_Test"),
+			"root",
+			"root",
+			"localhost",
+			"3306",
+			"retail_store_v2",
 		)
 	var err error
 	DB, err = gorm.Open(mysql.Open(connectionString), &gorm.Config{})

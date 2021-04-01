@@ -9,6 +9,16 @@ import (
 	"github.com/labstack/echo"
 )
 
+func ResponUserSuccess(status uint, message string, data models.User) models.UserResponse {
+	userResponse := models.UserResponse{
+		Code:    status,
+		Status:  "success",
+		Message: message,
+		Data:    data,
+	}
+	return userResponse
+}
+
 func GetUserDetailController(c echo.Context) error {
 	id := middlewares.ExtractTokenUserId(c)
 	user, err := db.GetUserDetail(int(id))
@@ -35,10 +45,7 @@ func CreateUserController(c echo.Context) error {
 			"message": "bad request",
 		})
 	}
-	return c.JSON(http.StatusCreated, map[string]interface{}{
-		"message": "user accoount created",
-		"data":    user,
-	})
+	return c.JSON(http.StatusCreated, ResponUserSuccess(http.StatusCreated, "user account created", user.(models.User)))
 }
 
 func UpdateUserDetailController(c echo.Context) error {
@@ -57,16 +64,12 @@ func UpdateUserDetailController(c echo.Context) error {
 	})
 }
 
-
 func LoginUserController(c echo.Context) error {
 	user := models.User{}
 	c.Bind(&user)
-	loggedInUser, err := db.LoginUser(&user)
+	_, err := db.LoginUser(&user)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status":"success login",
-		"users":loggedInUser,
-	})
+	return c.JSON(http.StatusOK, ResponUserSuccess(http.StatusOK, "sucess login", user))
 }

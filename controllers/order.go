@@ -31,7 +31,7 @@ func GetOrderController(c echo.Context) error {
 		"code":    http.StatusOK,
 		"status":  "success",
 		"message": "success deleting items",
-		"data":    order,
+		"data":    orders,
 	})
 
 }
@@ -92,11 +92,9 @@ func PostOrderController(c echo.Context) error {
 		})
 	}
 
-	orderTemp := models.Order{
-		ID: order.ID,
-	}
+	orderTemp := models.Order{}
 
-	if err := config.DB.Preload("Courier").Preload("Address").Preload("PaymentService").Preload("OrderItem.Item.ItemCategory").Preload("Payment").Where(&orderTemp).First(&orderTemp).Error; err != nil {
+	if err := config.DB.Preload("Courier").Preload("Address").Preload("PaymentService").Preload("OrderItem.Item.ItemCategory").Preload("Payment").Where("id = ?", order.ID).First(&orderTemp).Error; err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
 			"code":    http.StatusBadRequest,
 			"status":  "failed",

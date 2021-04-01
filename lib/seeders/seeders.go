@@ -26,7 +26,7 @@ func ItemCategorySeed() ([]models.ItemCategory, error) {
 			ID:           id,
 			CategoryName: categoryName,
 		}
-		err := config.DB.Save(&category).Error
+		err := config.DB.Create(&category).Error
 		id++
 		if err != nil {
 			return nil, err
@@ -46,14 +46,14 @@ func CouriersSeed() ([]models.Courier, error) {
 			ID:          id,
 			CompanyName: companyName,
 		}
-		err := config.DB.Save(&company).Error
+		err := config.DB.Create(&company).Error
 		if err != nil {
 			return nil, err
 		}
 		id++
 	}
 	couriers := []models.Courier{}
-	config.DB.Find(&couriers)
+	//config.DB.Find(&couriers)
 
 	return couriers, nil
 }
@@ -71,28 +71,26 @@ func PaymentServicesSeed() ([]models.PaymentService, error) {
 			CompanyName: serviceName,
 			Description: description,
 		}
-		err := config.DB.Save(&paymentService).Error
+		err := config.DB.Create(&paymentService).Error
 		if err != nil {
 			return nil, err
 		}
 		id++
 	}
 	paymentService := []models.PaymentService{}
-	config.DB.Find(&paymentService)
+	//config.DB.Find(&paymentService)
 
 	return paymentService, nil
 
 }
 
-func ItemSeed() ([]models.ItemResponse, error) {
+func ItemSeed() (models.ItemResponseArr, error) {
 	name := []string{"naruto vol 1", "naruto vol 2", "mosquito racket", "solder", "mikasa volleyball", "molten volleyball"}
 	category_id := []uint{2, 2, 1, 1, 3, 3}
 	stock := []uint{20, 20, 10, 10, 30, 30}
 	price := []uint{200, 200, 100, 100, 300, 300}
 	id := uint(1)
-	itemCategory := []models.ItemCategory{}
 	model := make([]models.Item, 6)
-	config.DB.Find(&itemCategory)
 	for i := 0; i < 3; i++ {
 		for j := 0; j < 2; j++ {
 			temp := i*2 + j
@@ -103,24 +101,45 @@ func ItemSeed() ([]models.ItemResponse, error) {
 				Stock:          stock[temp],
 				Price:          price[temp],
 				ItemCategoryID: category_id[temp],
-				ItemCategory:   itemCategory[i],
 			}
-			err := config.DB.Save(&model[temp]).Error
+			err := config.DB.Create(&model[temp]).Error
 			if err != nil {
-				return nil, err
+				return models.ItemResponseArr{}, err
 			}
 			id++
 		}
 	}
-	itemResponse := make([]models.ItemResponse, 6)
-	for pos, each := range model {
-		itemResponse[pos] = models.ItemResponse{
-			Code:    200,
-			Status:  "success",
-			Message: "success getting items",
-			Data:    each,
-		}
+	modelResponse := []models.Item{}
+	config.DB.Preload("ItemCategory").Find(&modelResponse)
+	itemResponse := models.ItemResponseArr{
+		Code:    200,
+		Status:  "success",
+		Message: "success getting items",
+		Data:    modelResponse,
 	}
 
 	return itemResponse, nil
+}
+
+func UserSeed() (models.User, error) {
+	user := models.User{
+		ID:          1,
+		Role:        "user",
+		Password:    "kumenangismembayangkan",
+		Name:        "Nurjamil",
+		Email:       "nurjamil1996@gmail.com",
+		Username:    "freferlay",
+		PhoneNumber: "0895610234239",
+	}
+	// if err := config.DB.Create(&user).Error; err != nil {
+	// 	return models.User{}, err
+	// }
+	// user.ShoppingCart.UserID = user.ID
+	// user.ShoppingCart.ID = 1
+
+	// if err := config.DB.Create(&user.ShoppingCart).Error; err != nil {
+	// 	return models.User{}, err
+	// }
+
+	return user, nil
 }

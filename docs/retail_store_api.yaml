@@ -231,7 +231,7 @@ paths:
                   type: array
                   items:
                     $ref: '#/definitions/Item'
-  /shopping_carts:
+  /shoppingcarts:
     get:
       tags:
         - developers
@@ -379,6 +379,61 @@ paths:
                 data:
                   type: object
                   $ref: '#/definitions/shopping_cart'
+  /shoppingcarts/checkout:
+    post:
+      tags:
+      - developers
+      summary: adds an order
+      operationId: add an order
+      description: Adds an order to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+      - in: header
+        name: authorization
+        description: token
+        required : true
+        type : string
+      - in: body
+        name: item
+        description: Inventory item to add
+        required : true
+        schema:
+          type: object
+          properties:
+            payment_service_id:
+              type: integer
+            address_id:
+              type: integer
+            courier_id:
+              type: integer
+      responses:
+        201:
+          description: order created
+          schema:
+              $ref: '#/definitions/Response' 
+              type: object
+              properties: 
+                data:
+                  type: object
+                  $ref: "#/definitions/order"
+                payment:
+                  type: object
+                  $ref: "#/definitions/Payment"
+        400:
+          description: invalid input, object invalid
+          schema:
+              $ref: '#/definitions/Response' 
+              type: object
+              properties: 
+                data:
+                  type: object
+                  $ref: "#/definitions/order"
+                payment:
+                  type: object
+                  $ref: "#/definitions/Payment"
   /orders/{order_id}:
     get:
       tags:
@@ -504,7 +559,7 @@ paths:
               type: integer
             courier_id:
               type: integer 
-            items: 
+            order_item: 
               type: array
               items:
                 $ref: '#/definitions/Item'

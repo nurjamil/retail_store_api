@@ -44,6 +44,7 @@ func New() *echo.Echo {
 
 	eJWT.GET("/shoppingcarts", controllers.GetShoppingCartController)
 	eJWT.POST("/shoppingcarts", controllers.PostItemToShoppingCartController)
+	eJWT.POST("/shoppingcarts/checkout", controllers.ShoppingCartCheckoutController)
 	eJWT.DELETE("/shoppingcarts", controllers.DeleteItemFromShoppingCartController)
 
 	eJWT.GET("/orders", controllers.GetOrderController)

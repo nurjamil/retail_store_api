@@ -28,3 +28,10 @@ type APIUser struct {
 	Email string
 	Token string
 }
+
+type UserResponse struct {
+	Code    uint   `json:"code" form:"code"`
+	Status  string `json:"status" form:"status"`
+	Message string `json:"message" form:"message"`
+	Data    User   `json:"data" form:"data"`
+}
