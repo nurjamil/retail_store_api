@@ -19,7 +19,7 @@ func Seed() error {
 }
 
 func ItemCategorySeed() ([]models.ItemCategory, error) {
-	categoryNames := []string{"Electronic", "Books", "Sport"}
+	categoryNames := []string{"Electronic", "Sport", "Books"}
 	id := uint(1)
 	for _, categoryName := range categoryNames {
 		category := models.ItemCategory{
@@ -86,7 +86,7 @@ func PaymentServicesSeed() ([]models.PaymentService, error) {
 
 func ItemSeed() (models.ItemResponseArr, error) {
 	name := []string{"naruto vol 1", "naruto vol 2", "mosquito racket", "solder", "mikasa volleyball", "molten volleyball"}
-	category_id := []uint{2, 2, 1, 1, 3, 3}
+	category_id := []uint{3, 3, 1, 1, 2, 2}
 	stock := []uint{20, 20, 10, 10, 30, 30}
 	price := []uint{200, 200, 100, 100, 300, 300}
 	id := uint(1)

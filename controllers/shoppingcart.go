@@ -108,10 +108,14 @@ func DeleteItemFromShoppingCartController(c echo.Context) error {
 	for _, oneItem := range items {
 		cartList := models.ShoppingCartList{}
 		if err := config.DB.Where("shopping_cart_id = ? AND item_id = ?", cart.ID, oneItem.ID).Unscoped().Delete(&cartList).Error; err != nil {
-			return c.JSON(http.StatusBadRequest, ResponFailure(err.Error()))
+			return c.JSON(http.StatusBadRequest, ResponFailure("failed deleting item from cart"))
 		}
 	}
-	return c.JSON(http.StatusOK, ResponSuccess(items))
+	return c.JSON(http.StatusOK, models.ShoppingCartAPI{
+		Code:    http.StatusOK,
+		Status:  "success",
+		Message: "success deleting items from cart",
+	})
 }
 
 func ShoppingCartCheckoutController(c echo.Context) error {

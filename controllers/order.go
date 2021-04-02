@@ -118,12 +118,20 @@ func DeleteOrderController(c echo.Context) error {
 		UserID: id,
 	}
 	c.Bind(&order)
-
-	if err := config.DB.Unscoped().Delete(&order).Error; err != nil {
+	if err := config.DB.Preload("Courier").Preload("Address").Preload("PaymentService").Preload("OrderItem.Item.ItemCategory").Preload("Payment").First(&order).Error; err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
 			"code":    http.StatusBadRequest,
 			"status":  "failed",
-			"message": err,
+			"message": "Order Not Found",
+			"data":    "",
+		})
+	}
+
+	if err := config.DB.Preload("Courier").Preload("Address").Preload("PaymentService").Preload("OrderItem.Item.ItemCategory").Preload("Payment").Unscoped().Delete(&order).Error; err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"code":    http.StatusBadRequest,
+			"status":  "failed",
+			"message": "Order Not Found",
 			"data":    "",
 		})
 	}
@@ -131,7 +139,7 @@ func DeleteOrderController(c echo.Context) error {
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"code":    http.StatusOK,
 		"status":  "success",
-		"message": "success deleting items",
+		"message": "success deleting orders",
 		"data":    order,
 	})
 

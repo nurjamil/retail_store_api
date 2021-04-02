@@ -39,7 +39,7 @@ func GetItemWIthParamsController(c echo.Context) error {
 }
 
 func GetItemController(c echo.Context) error {
-	categoryName := c.QueryParam("category_name")
+	categoryName := c.QueryParam("category")
 
 	id, _ := strconv.Atoi(c.QueryParam("id"))
 	model := models.Item{}
@@ -60,7 +60,9 @@ func GetItemController(c echo.Context) error {
 			Message: "failed getting items, itemcategory not found",
 		})
 	}
-	model.ItemCategoryID = itemCategory.ID
+	if categoryName != "" {
+		model.ItemCategoryID = itemCategory.ID
+	}
 
 	items := []models.Item{}
 	var err error

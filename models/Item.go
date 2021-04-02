@@ -36,12 +36,12 @@ type ItemResponse struct {
 	Code    uint   `json:"code" form:"code"`
 	Status  string `json:"status" form:"status"`
 	Message string `json:"message" form:"message"`
-	Data    Item   `json:"data" form:"data"`
+	Data    Item   `json:"data,omitempty" form:"data"`
 }
 
 type ItemResponseArr struct {
 	Code    uint   `json:"code" form:"code"`
 	Status  string `json:"status" form:"status"`
 	Message string `json:"message" form:"message"`
-	Data    []Item `json:"data" form:"data"`
+	Data    []Item `json:"data,omitempty" form:"data"`
 }

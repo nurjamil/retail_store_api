@@ -29,5 +29,5 @@ type ShoppingCartAPI struct {
 	Code    uint         `json:"code" form:"code"`
 	Status  string       `json:"status" form:"status"`
 	Message string       `json:"message" form:"message"`
-	Data    ShoppingCart `json:"data" form:"data"`
+	Data    ShoppingCart `json:"data,omitempty" form:"data"`
 }
