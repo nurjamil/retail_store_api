@@ -56,5 +56,18 @@ func New() *echo.Echo {
 	eAdmin := eJWT.Group("")
 	eAdmin.POST("/items", controllers.PostItemController)
 
+	eAdmin.GET("/couriers", controllers.GetCouriersController)
+	eAdmin.GET("/couriers/:id", controllers.GetCourierByIdController)
+	eAdmin.DELETE("/couriers/:id", controllers.DeleteCourierByIdController)
+	eAdmin.PUT("/couriers/:id", controllers.UpdateCourierByIdController)
+	eAdmin.POST("/couriers", controllers.CreateCourierController)
+
+	eAdmin.GET("/itemcategories", controllers.GetItemCategoriesController)
+	eAdmin.GET("/itemcategories/:id", controllers.GetItemCategoryByIdController)
+	eAdmin.DELETE("/itemcategories/:id", controllers.DeleteItemCategoryByIdController)
+	eAdmin.PUT("/itemcategories/:id", controllers.UpdateItemCategoryByIdController)
+	eAdmin.POST("/itemcategories", controllers.CreateItemCategoryController)	
+	
+
 	return e
 }
