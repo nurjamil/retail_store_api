@@ -22,7 +22,7 @@ Database Schema Design
 To get started, ensure that you have the following installed on your local machine:
 
 - [Golang](https://golang.org/dl/)
-- [PostgreSQL](https://www.mysql.com/downloads/)
+- [MySQL](https://www.mysql.com/downloads/)
 
 ### 1.2. Run locally
 
@@ -52,8 +52,6 @@ There are 4 basic HTTP requests that you can use in this API:
 Each response will include a code(repsonse code),message,status and data object that can be single object or array depending on the query.
 
 ## HTTP Response Codes
-
-Each response will be returned with one of the following HTTP status codes:
 
 Each response will be returned with one of the following HTTP status codes:
 
