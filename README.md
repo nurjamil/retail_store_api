@@ -4,7 +4,7 @@ Retail Store Ecommerce API
 
 ## Overview
 
-Retail Store API, a simple minimalistic ecommerce REST API written in Golang and built with Echo and Gorm, MySQL, showcasing three major functionalities:
+Retail Store API, a simple minimalistic ecommerce REST API written in Golang and built with Echo Gorm, and MySQL, showcasing five major functionalities:
 
 1. Authentication (Register and Login User)
 2. Products listing, and products listing by category
