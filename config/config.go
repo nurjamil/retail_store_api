@@ -34,7 +34,7 @@ func InitDBTest() {
 	connectionString :=
 		fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
 			"root",
-			"",
+			"root",
 			"localhost",
 			"3306",
 			"retail_store_db",

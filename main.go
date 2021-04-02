@@ -19,8 +19,7 @@ func main() {
 	//config.DropTable() //reset tables
 	config.InitialMigration()
 
-	seeders.Seed()
-	seeders.ItemSeed() // seeders for insert categories, paymentservices, and couries. for dev purposes
+	seeders.Seed() // seeders for insert categories, paymentservices, and couries. for dev purposes
 
 	e := routes.New()
 

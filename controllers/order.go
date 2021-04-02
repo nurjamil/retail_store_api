@@ -30,7 +30,7 @@ func GetOrderController(c echo.Context) error {
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"code":    http.StatusOK,
 		"status":  "success",
-		"message": "success deleting items",
+		"message": "success getting orders",
 		"data":    orders,
 	})
 
