@@ -131,6 +131,12 @@ func UserSeed() (models.User, error) {
 		Username:    "freferlay",
 		PhoneNumber: "0895610234239",
 	}
+	user.Address = make([]models.Address, 1)
+	user.Address[0] = models.Address{
+		ID:      1,
+		Name:    "rumah",
+		Address: "jln nangka 2",
+	}
 	// if err := config.DB.Create(&user).Error; err != nil {
 	// 	return models.User{}, err
 	// }

@@ -120,10 +120,9 @@ func DeleteItemFromShoppingCartController(c echo.Context) error {
 
 func ShoppingCartCheckoutController(c echo.Context) error {
 	id := uint(middlewares.ExtractTokenUserId(c))
-	order := models.Order{
-		UserID: id,
-	}
+	order := models.Order{}
 	c.Bind(&order)
+	order.UserID = id
 	shoppingCart := models.ShoppingCart{
 		UserID: id,
 	}
@@ -145,7 +144,7 @@ func ShoppingCartCheckoutController(c echo.Context) error {
 	var totalAmount uint = 0
 	for _, oneItem := range order.OrderItem {
 		item := models.Item{}
-		if err := config.DB.Where("id = ?", oneItem.ItemID).First(&item).Error; err != nil {
+		if err := config.DB.First(&item).Error; err != nil {
 			return c.JSON(http.StatusBadRequest, map[string]interface{}{
 				"code":    http.StatusBadRequest,
 				"status":  "failed",
@@ -164,11 +163,14 @@ func ShoppingCartCheckoutController(c echo.Context) error {
 		totalAmount += item.Price * oneItem.Quantity
 	}
 	order.TotalAmount = totalAmount
+	if order.TotalAmount == 0 {
+		order.UserID = 0
+	}
 	if err := config.DB.Create(&order).Error; err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
 			"code":    http.StatusBadRequest,
 			"status":  "failed",
-			"message": err,
+			"message": "failed creating order",
 			"data":    "",
 		})
 	}
@@ -203,11 +205,11 @@ func ShoppingCartCheckoutController(c echo.Context) error {
 		})
 	}
 
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"code":    http.StatusOK,
-		"status":  "success",
-		"message": "success creating order",
-		"data":    orderTemp,
+	return c.JSON(http.StatusOK, models.ResponseOrder{
+		Code:    http.StatusOK,
+		Status:  "success",
+		Message: "success checkout shoppingcart",
+		Data:    orderTemp,
 	})
 
 }

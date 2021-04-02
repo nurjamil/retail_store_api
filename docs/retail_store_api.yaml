@@ -41,18 +41,6 @@ paths:
           required: false
           type: string
         - in: query
-          name: name
-          description: pass an optional search string for looking up item
-          required: false
-          type: string
-        - in: query
-          name: limit
-          description: maximum number of records to return
-          type: integer
-          format: uint32
-          minimum: 0
-          maximum: 50
-        - in: query
           name: minPrice
           description: minimum price
           type: integer
@@ -66,11 +54,6 @@ paths:
           format: uint32
           minimum: 0
           maximum: 20000000
-        - in: query
-          name: sort
-          description: pass an optional search string for looking up item
-          required: false
-          type: string
       responses:
         200:
           description: search results matching criteria
@@ -181,7 +164,7 @@ paths:
                 data:
                   type: object
                   $ref: '#/definitions/Item'
-  /items/{item_name}:
+  /items/{item_id}:
     get:
       tags:
         - developers
@@ -194,7 +177,7 @@ paths:
         - application/json
       parameters:
         - in: path
-          name : item_name
+          name : item_id
           type: string
           required: true
           description: item name user to get
@@ -347,10 +330,10 @@ paths:
             type: array
             items:
               type: object
-            properties:
-              item_id:
-                type: integer
-                format: uint32
+              properties:
+                item_id:
+                  type: integer
+                  format: uint32
       responses:
         201:
           description: item deleted
@@ -765,16 +748,6 @@ paths:
         required: false
         type: string
       - in: query
-        name: order_id
-        description: order id from order
-        required: false
-        type: string
-      - in: query
-        name: customer_id
-        description: customer id from customer
-        required: false
-        type: string
-      - in: query
         name: status
         description: status
         type: integer
@@ -1098,14 +1071,19 @@ definitions:
           company_name:
             type: string
             example: "JNE"
+      order_item:
+        type: array
+        items:  
+          $ref : '#/definitions/Item'
       total_amount:
         type: integer
       address:
         type: string
       payment_id:
         type: string
-      status:
-        type: string
+      payment:
+        type: object
+        $ref: '#/definitions/Payment'
   RegisterUser:
     type: object
     properties:
@@ -1183,6 +1161,23 @@ definitions:
         type: string
       token:
         type: string
+  order_item:
+    type: object
+    properties:
+      order_item_id:
+          type: integer 
+      order_id:
+        type: integer
+      item_id:
+        type: integer
+      item:
+        type: object
+        $ref: '#/definitions/Item'
+      quantity:
+        type: integer
+
+
+      
       
 
       

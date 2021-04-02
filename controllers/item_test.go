@@ -84,7 +84,7 @@ func TestGetItemWithCategory(t *testing.T) {
 
 	e := echo.New()
 	q := make(url.Values)
-	q.Set("category_name", "Books")
+	q.Set("category", "Books")
 	req := httptest.NewRequest(http.MethodGet, "/?"+q.Encode(), nil)
 
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)

@@ -15,7 +15,7 @@ type Order struct {
 	TotalAmount      uint           `json:"total_amount" form:"total_amount"`
 	CourierID        uint           `json:"courier_id" form:"courier_id"`
 	Courier          Courier        `json:"courier" form:"courier"`
-	AddressID        uint           `json:"address_Id" form:"address_Id"`
+	AddressID        uint           `json:"address_id" form:"address_id"`
 	Address          Address        `json:"address" form:"address"`
 	PaymentServiceID uint           `json:"payment_service_id" form:"payment_service_id"`
 	PaymentService   PaymentService `json:"payment_service" form:"payment_service"`

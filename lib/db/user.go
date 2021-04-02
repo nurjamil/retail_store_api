@@ -1,6 +1,7 @@
 package db
 
 import (
+	"fmt"
 	"retailStore/config"
 	"retailStore/middlewares"
 	"retailStore/models"
@@ -22,7 +23,7 @@ func CreateUser(c echo.Context) (interface{}, error) {
 		Role: "user",
 	}
 	c.Bind(&user)
-	if err := config.DB.Save(&user).Error; err != nil {
+	if err := config.DB.Create(&user).Error; err != nil {
 		return nil, err
 	}
 	user.ShoppingCart.UserID = user.ID
@@ -33,7 +34,7 @@ func CreateUser(c echo.Context) (interface{}, error) {
 	return user, nil
 }
 
-func UpdateUserDetail(id int,c echo.Context) (interface{}, error) {
+func UpdateUserDetail(id int, c echo.Context) (interface{}, error) {
 	user := models.User{}
 	c.Bind(&user)
 	user.ID = uint(id)
@@ -43,18 +44,18 @@ func UpdateUserDetail(id int,c echo.Context) (interface{}, error) {
 	return user, nil
 }
 
-
-func LoginUser(user *models.User) (interface{}, error){
+func LoginUser(user *models.User) (interface{}, error) {
 	var err error
 	if err = config.DB.Where("username = ? AND password = ?", user.Username, user.Password).First(user).Error; err != nil {
 		return nil, err
 	}
 	user.Token, err = middlewares.CreateToken(int(user.ID), user.Role)
+	fmt.Println(user.Token)
 	if err != nil {
-		return nil,err
-	}
-	if err := config.DB.Save(user).Error; err!=nil{
 		return nil, err
 	}
-	return user,nil
+	if err := config.DB.Save(user).Error; err != nil {
+		return nil, err
+	}
+	return user, nil
 }
