@@ -20,18 +20,6 @@ func New() *echo.Echo {
 	e.GET("/items", controllers.GetItemController)
 	e.GET("/items/:id", controllers.GetItemWIthParamsController)
 
-	e.GET("/couriers", controllers.GetCouriersController)
-	e.GET("/couriers/:id", controllers.GetCourierByIdController)
-	e.DELETE("/couriers/:id", controllers.DeleteCourierByIdController)
-	e.PUT("/couriers/:id", controllers.UpdateCourierByIdController)
-	e.POST("/couriers", controllers.CreateCourierController)
-
-	e.GET("/itemCategories", controllers.GetItemCategoriesController)
-	e.GET("/itemCategories/:id", controllers.GetItemCategoryByIdController)
-	e.DELETE("/itemCategories/:id", controllers.DeleteItemCategoryByIdController)
-	e.PUT("/itemCategories/:id", controllers.UpdateItemCategoryByIdController)
-	e.POST("/itemCategories", controllers.CreateItemCategoryController)
-
 	eJWT := e.Group("")
 	eJWT.Use(middleware.JWT([]byte(os.Getenv("SECRET_JWT"))))
 
@@ -39,19 +27,34 @@ func New() *echo.Echo {
 	eJWT.GET("/address", controllers.GetAddressController)
 	eJWT.GET("/address/:id", controllers.GetAddressByIdController)
 
+	couriers := eJWT.Group("/couriers")
+	couriers.GET("", controllers.GetCouriersController)
+	couriers.GET("/:id", controllers.GetCourierByIdController)
+	couriers.DELETE("/:id", controllers.DeleteCourierByIdController)
+	couriers.PUT("/:id", controllers.UpdateCourierByIdController)
+	couriers.POST("", controllers.CreateCourierController)
+
+	itemcategories := eJWT.Group("/itemcategories")
+	itemcategories.GET("", controllers.GetItemCategoriesController)
+	itemcategories.GET("/:id", controllers.GetItemCategoryByIdController)
+	itemcategories.DELETE("/:id", controllers.DeleteItemCategoryByIdController)
+	itemcategories.PUT("/:id", controllers.UpdateItemCategoryByIdController)
+	itemcategories.POST("", controllers.CreateItemCategoryController)	
+	
 	eJWT.GET("/users", controllers.GetUserDetailController)
-	eJWT.PUT("/users", controllers.UpdateUserDetailController)
+	
+	eJWT.GET("/orders", controllers.GetOrderController)
+	eJWT.POST("/orders", controllers.PostOrderController)
+	eJWT.DELETE("/orders", controllers.DeleteOrderController)
+	
+	eJWT.GET("/payments", controllers.GetPaymentController)
 
 	eJWT.GET("/shoppingcarts", controllers.GetShoppingCartController)
 	eJWT.POST("/shoppingcarts", controllers.PostItemToShoppingCartController)
 	eJWT.POST("/shoppingcarts/checkout", controllers.ShoppingCartCheckoutController)
 	eJWT.DELETE("/shoppingcarts", controllers.DeleteItemFromShoppingCartController)
 
-	eJWT.GET("/orders", controllers.GetOrderController)
-	eJWT.POST("/orders", controllers.PostOrderController)
-	eJWT.DELETE("/orders", controllers.DeleteOrderController)
-
-	eJWT.GET("/payments", controllers.GetPaymentController)
+	eJWT.PUT("/users", controllers.UpdateUserDetailController)
 
 	eAdmin := eJWT.Group("")
 	eAdmin.POST("/items", controllers.PostItemController)

@@ -17,7 +17,9 @@ func GetCouriersController(c echo.Context) error {
 		})
 	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status": "success",
+		"code":    200,
+		"status":  "success",
+		"message": "success getting couriers",
 		"data":   couriers,
 	})
 }
@@ -31,7 +33,9 @@ func GetCourierByIdController(c echo.Context) error {
 		})
 	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status": "success",
+		"code":    200,
+		"status":  "success",
+		"message": "success getting courier by id",
 		"data":   courier,
 	})
 }
@@ -46,7 +50,9 @@ func CreateCourierController(c echo.Context) error {
 		})
 	}
 	return c.JSON(http.StatusCreated, map[string]interface{}{
-		"message": "courier created",
+		"code":    200,
+		"status":  "success",
+		"message": "success courier created",
 		"data":    courier,
 	})
 }
@@ -61,7 +67,9 @@ func DeleteCourierByIdController(c echo.Context) error {
 		})
 	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status": "success",
+		"code":    200,
+		"status":  "success",
+		"message": "success deleting courier by id",
 		"data":   courier,
 	})
 }
@@ -76,7 +84,9 @@ func UpdateCourierByIdController(c echo.Context) error {
 		})
 	}
 	return c.JSON(http.StatusCreated, map[string]interface{}{
-		"message": "courier updated",
+		"code":    200,
+		"status":  "success",
+		"message": "success deleting courier by id",
 		"data":    courier,
 	})
 }
