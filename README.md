@@ -4,13 +4,13 @@ Retail Store Ecommerce API
 
 ## Overview
 
-Retail Store API, a simple minimalistic ecommerce REST API written in Golang and built with Echo Gorm, and MySQL, showcasing five major functionalities:
+Retail Store API, a simple minimalistic ecommerce REST API written in Golang and built with Echo, Gorm, and MySQL, showcasing five major functionalities:
 
 1. Authentication (Register and Login User)
 2. Products listing, and products listing by category
 3. Shopping cart feature (add and delete products)
 4. Order placements and payment transaction
-5. Access restrictions (Admin only routes)
+5. Access restrictions (User and, Admin only routes)
 
 Database Schema Design
 ![Database Schema Design](/docs/erd.png)
@@ -34,7 +34,6 @@ To get started, ensure that you have the following installed on your local machi
 
 - Make a duplicate of `.env.example` and rename to `.env`, then configure your credentials.
 - Install dependencies by running `go mod tidy` on your terminal.
-- Two npm scripts are availiable to spin up the app server:
 - Run command: `go run main.go` to start the server on `localhost:3000`
   -. run command `go test ./controller/ -cover` to run unit testing
 
