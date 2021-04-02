@@ -133,7 +133,6 @@ func ShoppingCartCheckoutController(c echo.Context) error {
 			Message: err.Error(),
 		})
 	}
-
 	order.OrderItem = make([]models.OrderItem, len(shoppingCart.ShoppingCartList))
 	for pos, each := range shoppingCart.ShoppingCartList {
 		order.OrderItem[pos].ItemID = each.ItemID
@@ -144,6 +143,7 @@ func ShoppingCartCheckoutController(c echo.Context) error {
 	var totalAmount uint = 0
 	for _, oneItem := range order.OrderItem {
 		item := models.Item{}
+		item.ID = oneItem.ItemID
 		if err := config.DB.First(&item).Error; err != nil {
 			return c.JSON(http.StatusBadRequest, map[string]interface{}{
 				"code":    http.StatusBadRequest,

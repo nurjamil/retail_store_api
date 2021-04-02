@@ -37,7 +37,7 @@ func InitDBTest() {
 			"root",
 			"localhost",
 			"3306",
-			"retail_store_db",
+			"retail_store_v2",
 		)
 	var err error
 	DB, err = gorm.Open(mysql.Open(connectionString), &gorm.Config{})

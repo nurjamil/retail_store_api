@@ -12,10 +12,9 @@ import (
 
 func GetOrderController(c echo.Context) error {
 	id := uint(middlewares.ExtractTokenUserId(c))
-	order := models.Order{
-		UserID: id,
-	}
+	order := models.Order{}
 	c.Bind(&order)
+	order.UserID = id
 	orders := []models.Order{}
 
 	if err := config.DB.Preload("Courier").Preload("Address").Preload("PaymentService").Preload("OrderItem.Item.ItemCategory").Preload("Payment").Where(&order).Find(&orders).Error; err != nil {
@@ -24,6 +23,14 @@ func GetOrderController(c echo.Context) error {
 			"status":  "failed",
 			"message": err,
 			"data":    "",
+		})
+	}
+
+	if len(orders) < 1 {
+		return c.JSON(http.StatusOK, map[string]interface{}{
+			"code":    http.StatusOK,
+			"status":  "failed",
+			"message": "order not found",
 		})
 	}
 
