@@ -1,0 +1,1420 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "Retail Store API",
+    "description" : "Retail Store Ecommerce API",
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version" : "1.0.0-oas3"
+  },
+  "servers" : [ {
+    "url" : "https://virtserver.swaggerhub.com/a4443/retail_store/1.2"
+  } ],
+  "tags" : [ {
+    "name" : "Admin",
+    "description" : "Secured Admin-only calls"
+  }, {
+    "name" : "Authenticated User",
+    "description" : "Operations available only to authenticated users"
+  }, {
+    "name" : "Public",
+    "description" : "Operations available only all users"
+  } ],
+  "paths" : {
+    "/items" : {
+      "get" : {
+        "tags" : [ "Public" ],
+        "summary" : "item list",
+        "description" : "By passing in the appropriate options, you can search for\ncertain available item\n",
+        "operationId" : "list item",
+        "parameters" : [ {
+          "name" : "items_id",
+          "in" : "query",
+          "description" : "pass an optional search string for looking up item",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "category",
+          "in" : "query",
+          "description" : "pass an optional search string for looking up item",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "minPrice",
+          "in" : "query",
+          "description" : "minimum price",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "maximum" : 20000000,
+            "minimum" : 0,
+            "type" : "integer",
+            "format" : "uint32"
+          }
+        }, {
+          "name" : "maxPrice",
+          "in" : "query",
+          "description" : "maximum price",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "maximum" : 20000000,
+            "minimum" : 0,
+            "type" : "integer",
+            "format" : "uint32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Admin" ],
+        "summary" : "adds an inventory item",
+        "description" : "Adds an item to the system",
+        "operationId" : "addInventory",
+        "requestBody" : {
+          "description" : "Inventory item to add",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Item"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "description" : "item created",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid input, object invalid",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "409" : {
+            "description" : "---",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/items/{item_id}" : {
+      "get" : {
+        "tags" : [ "Public" ],
+        "summary" : "item list",
+        "description" : "By passing in the appropriate options, you can search for\ncertain available item\n",
+        "parameters" : [ {
+          "name" : "item_id",
+          "in" : "path",
+          "description" : "item name user to get",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/shoppingcarts" : {
+      "get" : {
+        "tags" : [ "Authenticated User" ],
+        "summary" : "shopping cart list",
+        "description" : "By passing in the appropriate options, you can get items in shopping cart\n",
+        "operationId" : "shopping cart item",
+        "parameters" : [ {
+          "name" : "Authorization",
+          "in" : "header",
+          "description" : "pass an required search string for looking up item in shopping cart",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "ok results matching criteria",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Authenticated User" ],
+        "summary" : "adds an item to shopping cart",
+        "description" : "Adds an item to the system",
+        "operationId" : "addItemToShoppingCart",
+        "parameters" : [ {
+          "name" : "authorization",
+          "in" : "header",
+          "description" : "token",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "Inventory item to add",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "item created",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid input, object invalid",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "409" : {
+            "description" : "an existing item already exists",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Authenticated User" ],
+        "summary" : "delete an item from shopping cart",
+        "description" : "delete an item from the system",
+        "operationId" : "deleteItemFromShoppingCart",
+        "parameters" : [ {
+          "name" : "authorization",
+          "in" : "header",
+          "description" : "token",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "Inventory item to add",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "array",
+                "items" : {
+                  "$ref" : "#/components/schemas/body_1"
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "item deleted",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid input, object invalid",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "409" : {
+            "description" : "item not exist",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/shoppingcarts/checkout" : {
+      "post" : {
+        "tags" : [ "Authenticated User" ],
+        "summary" : "adds an order",
+        "description" : "Adds an order to the system",
+        "operationId" : "add an order",
+        "parameters" : [ {
+          "name" : "authorization",
+          "in" : "header",
+          "description" : "token",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "Inventory item to add",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_2"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "order created",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid input, object invalid",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders/{order_id}" : {
+      "get" : {
+        "tags" : [ "Authenticated User" ],
+        "summary" : "shopping cart list",
+        "description" : "By passing in the appropriate options, you can get items in shopping cart",
+        "operationId" : "order item",
+        "parameters" : [ {
+          "name" : "order_id",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_1"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_1"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders" : {
+      "get" : {
+        "tags" : [ "Authenticated User" ],
+        "summary" : "shopping cart list",
+        "description" : "By passing in the appropriate options, you can get items in shopping cart",
+        "parameters" : [ {
+          "name" : "Authorization",
+          "in" : "header",
+          "description" : "pass an required search string for looking up ite  in shopping cart",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "order_id",
+          "in" : "query",
+          "description" : "pass an order_id",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_1"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_1"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Authenticated User" ],
+        "summary" : "adds an order",
+        "description" : "Adds an order to the system",
+        "parameters" : [ {
+          "name" : "authorization",
+          "in" : "header",
+          "description" : "token",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "Inventory item to add",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_3"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "order created",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid input, object invalid",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Authenticated User" ],
+        "summary" : "delete order item",
+        "description" : "delete an order from the system",
+        "operationId" : "delete order",
+        "parameters" : [ {
+          "name" : "authorization",
+          "in" : "header",
+          "description" : "token",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "Inventory item to add",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_4"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "order deleted",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid input, object invalid",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "409" : {
+            "description" : "order not exist",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/register" : {
+      "post" : {
+        "tags" : [ "Public" ],
+        "summary" : "register user account",
+        "description" : "register user account to the system",
+        "operationId" : "register user account",
+        "requestBody" : {
+          "description" : "register user account",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/RegisterUser"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "account created",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_201"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid input, object invalid",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_201"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/login" : {
+      "post" : {
+        "tags" : [ "Public" ],
+        "summary" : "login user account",
+        "description" : "login user account to the system",
+        "operationId" : "login user account",
+        "requestBody" : {
+          "description" : "login user account",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/UserLogin"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "login access granted",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_2"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "incorrect username/password",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_2"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/payments" : {
+      "get" : {
+        "tags" : [ "Authenticated User" ],
+        "summary" : "payment list",
+        "description" : "By passing in the appropriate options, you can search for\ncertain available payment\n",
+        "operationId" : "payment item",
+        "parameters" : [ {
+          "name" : "authorization",
+          "in" : "header",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "payment_id",
+          "in" : "query",
+          "description" : "pass an optional search string for looking up item",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "status",
+          "in" : "query",
+          "description" : "status",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "uint32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_3"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_3"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/payments/{payment_id}" : {
+      "get" : {
+        "tags" : [ "Authenticated User" ],
+        "summary" : "payment list",
+        "description" : "By passing in the appropriate options, you can search for\ncertain available payment\n",
+        "parameters" : [ {
+          "name" : "authorization",
+          "in" : "header",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "payment_id",
+          "in" : "path",
+          "description" : "pass an optional search integer for looking up payment",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_3"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_3"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/courier" : {
+      "get" : {
+        "tags" : [ "Authenticated User" ],
+        "summary" : "courier list",
+        "description" : "By passing in the appropriate options, you can search for\ncertain available courier\n",
+        "operationId" : "courier courier",
+        "parameters" : [ {
+          "name" : "authorization",
+          "in" : "header",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Courier"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    },
+    "/address" : {
+      "get" : {
+        "tags" : [ "Authenticated User" ],
+        "summary" : "get address",
+        "operationId" : "get address",
+        "parameters" : [ {
+          "name" : "authorization",
+          "in" : "header",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "address_id",
+          "in" : "query",
+          "description" : "pass an optional search string for looking up address",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "name",
+          "in" : "query",
+          "description" : "pass an optional search string for looking up address",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_4"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_4"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Authenticated User" ],
+        "summary" : "adds an address item",
+        "description" : "Adds an address to the system",
+        "operationId" : "addaddress",
+        "parameters" : [ {
+          "name" : "authorization",
+          "in" : "header",
+          "description" : "authorization token",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "address item to add",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_5"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "address created",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_201_1"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid input, object invalid",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_201_1"
+                }
+              }
+            }
+          },
+          "409" : {
+            "description" : "an existing address already exists",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_201_1"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/address/{address_id}" : {
+      "get" : {
+        "tags" : [ "Authenticated User" ],
+        "summary" : "get address",
+        "parameters" : [ {
+          "name" : "authorization",
+          "in" : "header",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "address_id",
+          "in" : "path",
+          "description" : "pass an optional search string for looking up address",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_4"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_4"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Item" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "uint32",
+            "example" : 69
+          },
+          "name" : {
+            "type" : "string",
+            "example" : "Widget Adapter"
+          },
+          "description" : {
+            "type" : "string",
+            "example" : "ini adalah buku budi"
+          },
+          "category" : {
+            "type" : "string"
+          },
+          "price" : {
+            "type" : "integer",
+            "format" : "uint32"
+          }
+        }
+      },
+      "shopping_cart" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/Item"
+        }
+      },
+      "order" : {
+        "type" : "object",
+        "properties" : {
+          "order_id" : {
+            "type" : "integer",
+            "example" : 1
+          },
+          "courier" : {
+            "$ref" : "#/components/schemas/order_courier"
+          },
+          "order_item" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Item"
+            }
+          },
+          "total_amount" : {
+            "type" : "integer"
+          },
+          "address" : {
+            "type" : "string"
+          },
+          "payment_id" : {
+            "type" : "string"
+          },
+          "payment" : {
+            "$ref" : "#/components/schemas/Payment"
+          }
+        }
+      },
+      "RegisterUser" : {
+        "type" : "object",
+        "properties" : {
+          "username" : {
+            "type" : "string"
+          },
+          "nama" : {
+            "type" : "string"
+          },
+          "email" : {
+            "type" : "string",
+            "example" : "email@email.com"
+          },
+          "phone_number" : {
+            "type" : "string",
+            "example" : "+628999"
+          },
+          "password" : {
+            "type" : "string",
+            "example" : "password123"
+          }
+        }
+      },
+      "UserLogin" : {
+        "type" : "object",
+        "properties" : {
+          "username" : {
+            "type" : "string"
+          },
+          "password" : {
+            "type" : "string",
+            "example" : "password123"
+          }
+        }
+      },
+      "Payment" : {
+        "type" : "object",
+        "properties" : {
+          "payment_id" : {
+            "type" : "integer"
+          },
+          "transfer_code" : {
+            "type" : "string"
+          },
+          "order_id" : {
+            "type" : "integer"
+          },
+          "customer_id" : {
+            "type" : "integer"
+          },
+          "status" : {
+            "type" : "string"
+          },
+          "total_amount" : {
+            "type" : "integer"
+          }
+        }
+      },
+      "Courier" : {
+        "type" : "object",
+        "properties" : {
+          "courier_id" : {
+            "type" : "integer"
+          },
+          "company_name" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Address" : {
+        "type" : "object",
+        "properties" : {
+          "address_id" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "address" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Response" : {
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "type" : "integer"
+          },
+          "status" : {
+            "type" : "string"
+          },
+          "message" : {
+            "type" : "string"
+          }
+        }
+      },
+      "CustomerInfo" : {
+        "type" : "object",
+        "properties" : {
+          "customer_id" : {
+            "type" : "integer"
+          },
+          "username" : {
+            "type" : "string"
+          },
+          "email" : {
+            "type" : "string"
+          },
+          "no_hp" : {
+            "type" : "string"
+          },
+          "token" : {
+            "type" : "string"
+          }
+        }
+      },
+      "order_item" : {
+        "type" : "object",
+        "properties" : {
+          "order_item_id" : {
+            "type" : "integer"
+          },
+          "order_id" : {
+            "type" : "integer"
+          },
+          "item_id" : {
+            "type" : "integer"
+          },
+          "item" : {
+            "$ref" : "#/components/schemas/Item"
+          },
+          "quantity" : {
+            "type" : "integer"
+          }
+        }
+      },
+      "inline_response_200" : {
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "type" : "string"
+          },
+          "status" : {
+            "type" : "string"
+          },
+          "message" : {
+            "type" : "string"
+          },
+          "data" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Item"
+            }
+          }
+        }
+      },
+      "body" : {
+        "type" : "object",
+        "properties" : {
+          "item_id" : {
+            "type" : "integer",
+            "format" : "uint32"
+          },
+          "quantity" : {
+            "type" : "integer",
+            "format" : "uint32"
+          }
+        }
+      },
+      "body_1" : {
+        "type" : "object",
+        "properties" : {
+          "item_id" : {
+            "type" : "integer",
+            "format" : "uint32"
+          }
+        }
+      },
+      "body_2" : {
+        "type" : "object",
+        "properties" : {
+          "payment_service_id" : {
+            "type" : "integer"
+          },
+          "address_id" : {
+            "type" : "integer"
+          },
+          "courier_id" : {
+            "type" : "integer"
+          }
+        }
+      },
+      "inline_response_200_1" : {
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "type" : "string"
+          },
+          "status" : {
+            "type" : "string"
+          },
+          "message" : {
+            "type" : "string"
+          },
+          "data" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/order"
+            }
+          }
+        }
+      },
+      "body_3" : {
+        "type" : "object",
+        "properties" : {
+          "payment_service_id" : {
+            "type" : "integer"
+          },
+          "address_id" : {
+            "type" : "integer"
+          },
+          "courier_id" : {
+            "type" : "integer"
+          },
+          "order_item" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Item"
+            }
+          }
+        }
+      },
+      "body_4" : {
+        "type" : "object",
+        "properties" : {
+          "order_id" : {
+            "type" : "integer",
+            "example" : 0
+          }
+        }
+      },
+      "inline_response_201" : {
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "type" : "integer"
+          },
+          "status" : {
+            "type" : "string"
+          },
+          "message" : {
+            "type" : "string"
+          },
+          "data" : {
+            "type" : "object"
+          }
+        }
+      },
+      "inline_response_200_2" : {
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "type" : "integer"
+          },
+          "status" : {
+            "type" : "string"
+          },
+          "message" : {
+            "type" : "string"
+          },
+          "data" : {
+            "$ref" : "#/components/schemas/CustomerInfo"
+          }
+        }
+      },
+      "inline_response_200_3" : {
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "type" : "integer"
+          },
+          "status" : {
+            "type" : "string"
+          },
+          "message" : {
+            "type" : "string"
+          },
+          "data" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Payment"
+            }
+          }
+        }
+      },
+      "inline_response_200_4" : {
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "type" : "integer"
+          },
+          "status" : {
+            "type" : "string"
+          },
+          "message" : {
+            "type" : "string"
+          },
+          "data" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Address"
+            }
+          }
+        }
+      },
+      "body_5" : {
+        "type" : "object",
+        "properties" : {
+          "address" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          }
+        }
+      },
+      "inline_response_201_1" : {
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "type" : "integer"
+          },
+          "status" : {
+            "type" : "string"
+          },
+          "message" : {
+            "type" : "string"
+          },
+          "data" : {
+            "$ref" : "#/components/schemas/Address"
+          }
+        }
+      },
+      "order_courier" : {
+        "type" : "object",
+        "properties" : {
+          "company_name" : {
+            "type" : "string",
+            "example" : "JNE"
+          }
+        }
+      }
+    }
+  }
+}
