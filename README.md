@@ -1,7 +1,7 @@
 # Retail Store API
 
 Retail Store Ecommerce API
-- [Swagger Documentation](https://app.swaggerhub.com/apis-docs/a4443/retail_store/1.0.0-oas3#/)
+- [Swagger Documentation](https://app.swaggerhub.com/apis-docs/a4443/retail_store_api/2.0#/)
 
 ## Overview
 
